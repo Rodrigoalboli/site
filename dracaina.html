@@ -174,22 +174,29 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div id="pw-gate" style="position:fixed;inset:0;background:var(--paper);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px">
+  <form id="pw-form" style="max-width:320px;width:100%;display:flex;flex-direction:column;gap:12px">
+    <label for="pw-input" style="font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Senha</label>
+    <input id="pw-input" type="password" autocomplete="off" style="padding:12px 14px;border:1px solid var(--line-strong);border-radius:3px;font-size:16px;background:var(--surface);color:var(--ink)">
+    <button type="submit" style="padding:12px 14px;border:none;border-radius:3px;background:var(--ink);color:var(--paper);font-family:var(--f-display);font-weight:700;cursor:pointer">Entrar</button>
+    <p id="pw-error" hidden style="color:var(--story);font-size:13px;margin:0">Senha incorreta.</p>
+  </form>
+</div>
+<div class="wrap" id="pw-content" hidden>
 
 <header>
   <div class="eyebrow">Telos · CFP® · Roteiros para produção</div>
   <h1>Oito roteiros de reel</h1>
-  <p class="thesis">Um mês inteiro de reels, gravável em duas diárias. <b>Cada roteiro tem gancho de três segundos, um número real e uma pergunta de fecho</b> — a mesma estrutura, oito assuntos. As colunas da direita são para a produção; as da esquerda, para quem fala.</p>
+  <p class="thesis">Um mês inteiro de reels. <b>Cada roteiro tem gancho de três segundos, um número real e uma pergunta de fecho</b> — a mesma estrutura, oito assuntos. As colunas da direita são para a produção; as da esquerda, para quem fala.</p>
   <div class="facts">
     <span><b>8</b>roteiros</span>
-    <span><b>2</b>diárias de gravação</span>
     <span><b>30–45s</b>cada</span>
     <span><b>90–120</b>palavras por roteiro</span>
   </div>
 </header>
 
 <section id="regras">
-  <div class="sec-head"><span class="eyebrow">Antes de gravar</span><h2>Regras que valem para os oito</h2></div>
+  <div class="sec-head"><class="eyebrow">Antes de gravar</span><h2>Regras que valem para os oito</h2></div>
   <p class="lede">Elas existem para o reel passar no teste de topo de funil: se para entender o vídeo a pessoa precisar antes aceitar que precisa de um plano, o reel perde alcance — não importa quão bom seja o conteúdo.</p>
   <div class="rules">
     <div class="panel">
@@ -331,63 +338,7 @@
     <div class="source">Fonte: <em>Classes de Vulnerabilidade</em> (Riscos e Seguros) · <em>Capital Humano</em> · <em>Telos — Missão, Visão e Modelo</em>.</div>
   </article>
 
-  <!-- R3 -->
-  <article class="script">
-    <div class="s-head">
-      <div class="s-num">R3</div>
-      <div>
-        <h3>Metade não é sua para decidir</h3>
-        <div class="s-meta">
-          <span>Semana 2 · <b>segunda</b></span>
-          <span>40–45s</span>
-          <span class="layer-t">Topo</span>
-          <span>Sucessão</span>
-        </div>
-      </div>
-    </div>
-    <div class="s-body">
-      <div class="falas">
-        <div class="beat hook">
-          <div class="tc">0–3s</div>
-          <div class="line">Metade do que você tem não é sua para decidir.</div>
-        </div>
-        <div class="beat">
-          <div class="tc">3–38s</div>
-          <div class="line">
-            <p>Se você é casado em comunhão parcial — que é o regime mais comum no Brasil — <strong>metade do patrimônio já é do seu cônjuge</strong>. Isso não é herança. Chama meação, e sai do bolo antes de qualquer partilha.</p>
-            <p>Da metade que sobra, <strong>metade é reservada por lei</strong> aos herdeiros necessários. Filhos, primeiro. Na falta deles, os pais.</p>
-            <p>Sobra <strong>um quarto</strong>. É sobre esse quarto que você decide livremente, em testamento.</p>
-            <p>A maioria das pessoas acha que decide sobre o todo.</p>
-          </div>
-        </div>
-        <div class="beat close">
-          <div class="tc">Fecho</div>
-          <div class="line">Você sabia que a sua margem de decisão era essa?</div>
-        </div>
-      </div>
-      <div class="tec">
-        <h4>Texto na tela</h4>
-        <span class="onscreen">METADE NÃO É SUA</span>
-        <span class="onscreen">SOBRA 1/4</span>
-        <h4>Ressalva obrigatória</h4>
-        <div class="flag"><span class="fl">Não pode faltar</span><p>Legenda fixa nos últimos cinco segundos e <b>primeira linha da legenda do post</b>: "Conversa de planejamento, não parecer jurídico." Rodrigo assina como CFP®, não como advogado.</p></div>
-        <h4>Nota de gravação</h4>
-        <ul>
-          <li>Gancho <b>seco, sem contexto antes</b>. A afirmação isolada é o que segura os três segundos.</li>
-          <li>Diga "comunhão parcial" e siga — não explique regime de bens no reel. Isso é o carrossel de quarta.</li>
-          <li>Apoio na tela ao dizer "sobra um quarto": barra dividida em quatro, um quarto aceso.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="s-caption">
-      <span class="eyebrow">Legenda do post</span>
-      <p>Conversa de planejamento, não parecer jurídico.</p>
-      <p>Meação não é herança: é a metade que já era do cônjuge pelo regime de bens, e ela sai antes da partilha. Só depois disso a lei reserva metade do que restou aos herdeiros necessários.</p>
-      <p>Em separação total de bens não há meação — e a conta muda inteira. Você sabe qual é o seu regime?</p>
-    </div>
-    <div class="source">Fonte: <em>Meação e Legítima</em> · <em>Ordem de Vocação Hereditária</em> (art. 1.829, CC/2002). O vault marca essas notas como simplificação do MVP.</div>
-  </article>
-
+  
   <!-- R4 -->
   <article class="script">
     <div class="s-head">
@@ -681,5 +632,37 @@
 </footer>
 
 </div>
+<script>
+(function(){
+  var PW = "WeLoveSimo";
+  var KEY = "dracaina-unlocked";
+  var gate = document.getElementById('pw-gate');
+  var content = document.getElementById('pw-content');
+  var form = document.getElementById('pw-form');
+  var input = document.getElementById('pw-input');
+  var error = document.getElementById('pw-error');
+
+  function unlock(){
+    gate.remove();
+    content.hidden = false;
+  }
+
+  try {
+    if (sessionStorage.getItem(KEY) === '1') { unlock(); return; }
+  } catch(e) {}
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    if (input.value === PW) {
+      try { sessionStorage.setItem(KEY, '1'); } catch(e) {}
+      unlock();
+    } else {
+      error.hidden = false;
+      input.value = '';
+      input.focus();
+    }
+  });
+})();
+</script>
 </body>
 </html>
