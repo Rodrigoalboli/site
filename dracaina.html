@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Os oito roteiros de reel do mes da Telos: gancho de tres segundos, fala completa marcada por tempo, texto na tela, notas de gravacao e legenda do post.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Oito Roteiros de Reel">
+  <meta property="og:description" content="Roteiros de producao para os reels da Telos.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%99%EF%B8%8F%3C/text%3E%3C/svg%3E">
+  <style>
+    /* Reset equivalente ao aplicado pelo host do artifact */
+    :root{color-scheme:light}
+    html{-webkit-text-size-adjust:100%}
+    body{margin:0}
+    img{max-width:100%}
+    [hidden]{display:none!important}
+  </style>
+  <title>Oito Roteiros de Reel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6;
+    --surface:#FFFFFF;
+    --surface-2:#E7EAEF;
+    --ink:#111821;
+    --ink-2:#39434F;
+    --muted:#6B7683;
+    --line:#D3D9E0;
+    --line-strong:#B4BDC7;
+
+    --reel:#2F72B0;
+    --reel-soft:#E3EEF7;
+    --carro:#3E8E6E;
+    --story:#C96A2B;
+    --story-soft:#F7E9DD;
+    --topo:#2F72B0;
+    --meio:#6B7683;
+    --fundo:#C96A2B;
+
+    --shadow:0 1px 2px rgba(17,24,33,.05), 0 8px 24px -16px rgba(17,24,33,.28);
+    --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --f-mono:"IBM Plex Mono","SFMono-Regular",Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E141B; --surface:#161E27; --surface-2:#1E2833;
+      --ink:#E8EDF3; --ink-2:#BEC8D3; --muted:#8A95A2;
+      --line:#2A3540; --line-strong:#3B4854;
+      --reel:#6BA9DC; --reel-soft:#172938; --carro:#6FBE9B;
+      --story:#E29257; --story-soft:#2E1E12;
+      --topo:#6BA9DC; --meio:#8A95A2; --fundo:#E29257;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E141B; --surface:#161E27; --surface-2:#1E2833;
+    --ink:#E8EDF3; --ink-2:#BEC8D3; --muted:#8A95A2;
+    --line:#2A3540; --line-strong:#3B4854;
+    --reel:#6BA9DC; --reel-soft:#172938; --carro:#6FBE9B;
+    --story:#E29257; --story-soft:#2E1E12;
+    --topo:#6BA9DC; --meio:#8A95A2; --fundo:#E29257;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--f-body); font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px 96px}
+  h1,h2,h3,h4{font-family:var(--f-display); text-wrap:balance; margin:0}
+  p{margin:0}
+  .eyebrow{font-family:var(--f-mono); font-size:11px; font-weight:500;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header{padding:72px 0 38px; border-bottom:1px solid var(--line-strong)}
+  header h1{font-size:clamp(38px,6vw,62px); font-weight:800; letter-spacing:-.03em;
+    line-height:1.03; margin:18px 0 0; max-width:14ch}
+  .thesis{font-size:clamp(18px,2.2vw,22px); color:var(--ink-2); margin-top:22px; max-width:62ch; line-height:1.5}
+  .thesis b{color:var(--ink); font-weight:600}
+  .facts{display:flex; flex-wrap:wrap; gap:10px 40px; margin-top:32px;
+    font-family:var(--f-mono); font-size:12.5px; color:var(--muted)}
+  .facts span b{font-family:var(--f-display); font-weight:700; font-size:15px;
+    color:var(--ink); margin-right:7px; font-variant-numeric:tabular-nums}
+
+  section{padding-top:60px}
+  .sec-head{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(23px,3vw,30px); font-weight:700; letter-spacing:-.02em}
+  .lede{color:var(--ink-2); max-width:68ch; margin-top:10px}
+
+  /* regras gerais */
+  .rules{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px}
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:22px 24px 24px}
+  .panel h3{font-size:17px; font-weight:700; margin-bottom:14px; letter-spacing:-.01em}
+  .panel ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px}
+  .panel li{font-size:15.5px; line-height:1.5; color:var(--ink-2); padding-left:20px; position:relative}
+  .panel li::before{content:""; position:absolute; left:0; top:.62em; width:8px; height:1.5px; background:var(--line-strong)}
+  .panel li b{color:var(--ink); font-weight:600}
+  .panel.warn li::before{background:var(--story)}
+
+  /* ficha de roteiro */
+  .script{margin-top:24px; background:var(--surface); border:1px solid var(--line);
+    border-radius:3px; box-shadow:var(--shadow); overflow:hidden; border-top:3px solid var(--reel)}
+  .s-head{padding:20px 26px 18px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,var(--surface-2),transparent);
+    display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:baseline}
+  .s-num{font-family:var(--f-display); font-weight:800; font-size:24px; letter-spacing:-.02em;
+    color:var(--reel); font-variant-numeric:tabular-nums}
+  .s-head h3{font-size:clamp(20px,2.5vw,26px); font-weight:700; letter-spacing:-.02em; line-height:1.15}
+  .s-meta{display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:9px;
+    font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+  .s-meta b{color:var(--ink); font-weight:600}
+  .s-meta .layer-t{color:var(--topo); font-weight:600}
+  .s-meta .layer-m{color:var(--meio); font-weight:600}
+  .s-meta .layer-f{color:var(--fundo); font-weight:600}
+
+  .s-body{display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+  .falas{padding:8px 26px 26px; border-right:1px solid var(--line); min-width:0}
+  .tec{padding:8px 24px 26px; background:var(--surface-2); min-width:0}
+
+  .beat{padding:18px 0 0; display:grid; grid-template-columns:64px 1fr; gap:16px; align-items:start}
+  .beat + .beat{border-top:1px solid var(--line); margin-top:16px; padding-top:16px}
+  .tc{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); padding-top:5px; font-variant-numeric:tabular-nums}
+  .beat.hook .tc{color:var(--reel); font-weight:600}
+  .beat.hook .line{font-size:21px; line-height:1.35; font-weight:600; color:var(--ink); letter-spacing:-.01em}
+  .beat.close .tc{color:var(--story); font-weight:600}
+  .beat.close .line{font-size:18.5px; line-height:1.4; color:var(--ink); font-weight:600}
+  .line{font-size:17px; line-height:1.6; color:var(--ink-2)}
+  .line p + p{margin-top:11px}
+  .line strong{color:var(--ink); font-weight:600}
+
+  .tec h4{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); font-weight:500; margin:22px 0 9px}
+  .tec h4:first-child{margin-top:18px}
+  .onscreen{font-family:var(--f-display); font-weight:800; font-size:15px; letter-spacing:.02em;
+    background:var(--ink); color:var(--paper); display:inline-block; padding:6px 11px; border-radius:2px; line-height:1.25}
+  .onscreen + .onscreen{margin-top:7px}
+  .tec p, .tec li{font-size:14.5px; line-height:1.5; color:var(--ink-2)}
+  .tec ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px}
+  .tec li{padding-left:16px; position:relative}
+  .tec li::before{content:""; position:absolute; left:0; top:.62em; width:7px; height:1.5px; background:var(--line-strong)}
+  .tec li b{color:var(--ink); font-weight:600}
+  .flag{background:var(--story-soft); border-left:3px solid var(--story); padding:12px 14px; border-radius:0 2px 2px 0}
+  .flag p{color:var(--ink); font-size:14.5px}
+  .flag .fl{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--story); font-weight:600; display:block; margin-bottom:5px}
+
+  .s-caption{padding:18px 26px 20px; border-top:1px solid var(--line); background:var(--surface)}
+  .s-caption .eyebrow{display:block; margin-bottom:9px}
+  .s-caption p{font-size:16px; line-height:1.55; color:var(--ink-2); max-width:68ch}
+  .s-caption p + p{margin-top:9px}
+
+  .source{padding:12px 26px 14px; border-top:1px solid var(--line);
+    font-family:var(--f-mono); font-size:11px; color:var(--muted); line-height:1.6}
+  .source em{font-style:normal; color:var(--ink-2)}
+
+  footer{margin-top:64px; padding-top:22px; border-top:1px solid var(--line-strong);
+    font-family:var(--f-mono); font-size:12px; color:var(--muted); line-height:1.7}
+
+  @media (max-width:880px){
+    .rules{grid-template-columns:1fr}
+    .s-body{grid-template-columns:1fr}
+    .falas{border-right:0; border-bottom:1px solid var(--line)}
+    .s-head{grid-template-columns:1fr; gap:6px}
+    .beat{grid-template-columns:1fr; gap:6px}
+    body{font-size:16px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+  :focus-visible{outline:2px solid var(--reel); outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Telos · CFP® · Roteiros para produção</div>
+  <h1>Oito roteiros de reel</h1>
+  <p class="thesis">Um mês inteiro de reels, gravável em duas diárias. <b>Cada roteiro tem gancho de três segundos, um número real e uma pergunta de fecho</b> — a mesma estrutura, oito assuntos. As colunas da direita são para a produção; as da esquerda, para quem fala.</p>
+  <div class="facts">
+    <span><b>8</b>roteiros</span>
+    <span><b>2</b>diárias de gravação</span>
+    <span><b>30–45s</b>cada</span>
+    <span><b>90–120</b>palavras por roteiro</span>
+  </div>
+</header>
+
+<section id="regras">
+  <div class="sec-head"><span class="eyebrow">Antes de gravar</span><h2>Regras que valem para os oito</h2></div>
+  <p class="lede">Elas existem para o reel passar no teste de topo de funil: se para entender o vídeo a pessoa precisar antes aceitar que precisa de um plano, o reel perde alcance — não importa quão bom seja o conteúdo.</p>
+  <div class="rules">
+    <div class="panel">
+      <h3>Fala e imagem</h3>
+      <ul>
+        <li><b>Gancho nos três primeiros segundos.</b> A primeira frase é a tese inteira. Nada de "oi, tudo bem", nada de contexto antes.</li>
+        <li><b>Segunda pessoa, frases curtas.</b> Uma ideia por frase. Se a frase precisa de vírgula no meio para respirar, corta em duas.</li>
+        <li><b>Um número real por reel, dito devagar.</b> Nunca "muito", "bastante", "significativo".</li>
+        <li><b>Legenda queimada no vídeo.</b> A maioria assiste sem som — o gancho precisa ser lido antes de ser ouvido.</li>
+        <li><b>Enquadramento fixo, corte seco a cada frase.</b> Sem zoom dramático, sem trilha alta. A autoridade vem do conteúdo.</li>
+        <li><b>Termina em pergunta direta.</b> É o que abre a caixa de comentários e alimenta a caixinha do story na quinta.</li>
+      </ul>
+    </div>
+    <div class="panel warn">
+      <h3>O que não entra</h3>
+      <ul>
+        <li><b>Jargão de bastidor.</b> "Percentil 10" vira "um cenário propositalmente mais adverso que o esperado". "Funded ratio" vira "quanto do seu objetivo já está coberto". "Trava" vira "não deixamos um bom resultado esconder um risco real".</li>
+        <li><b>Monte Carlo, mil trajetórias, grade de perfis.</b> Impressionam, e por isso parecem topo. Exigem vocabulário: são fundo disfarçado e derrubam o alcance.</li>
+        <li><b>Hashtag, emoji, bordão de abertura.</b> A voz é a mesma do perfil no X.</li>
+        <li><b>Número de cliente real.</b> Todos os valores abaixo são de casos-modelo do vault ou explicitamente marcados como exemplo.</li>
+        <li><b>Promessa de retorno ou recomendação de produto.</b> Nenhum dos oito reels menciona ativo, classe ou percentual de carteira.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="roteiros">
+  <div class="sec-head"><span class="eyebrow">Diária 1</span><h2>Semanas 1 e 2</h2></div>
+  <p class="lede">Quatro reels de topo puro: capital humano, proteção e sucessão. São os temas de maior alcance do mês — nenhum deles exige que a pessoa já tenha patrimônio para entender.</p>
+
+  <!-- R1 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R1</div>
+      <div>
+        <h3>O seu maior ativo não aparece no extrato</h3>
+        <div class="s-meta">
+          <span>Semana 1 · <b>segunda</b></span>
+          <span>35–40s</span>
+          <span class="layer-t">Topo</span>
+          <span>Capital humano</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook">
+          <div class="tc">0–3s</div>
+          <div class="line">Você provavelmente já é milionário. Só que esse dinheiro ainda não está em lugar nenhum.</div>
+        </div>
+        <div class="beat">
+          <div class="tc">3–30s</div>
+          <div class="line">
+            <p>Quanto você ganha por ano? Quantos anos faltam até você parar de trabalhar?</p>
+            <p>Alguém de quarenta anos que ganha <strong>cento e oitenta mil reais por ano</strong> tem vinte e cinco anos de renda pela frente. Trazido para valor de hoje, isso vale <strong>um milhão e meio de reais</strong>.</p>
+            <p>Isso é um ativo. Na maioria das pessoas, é o maior ativo que elas têm até a meia-idade.</p>
+            <p>E é o único que não aparece em extrato nenhum. Nenhum banco te mostra. Nenhuma reunião de investimento começa por ele.</p>
+          </div>
+        </div>
+        <div class="beat close">
+          <div class="tc">Fecho</div>
+          <div class="line">Você já fez essa conta para a sua vida?</div>
+        </div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">VOCÊ JÁ É MILIONÁRIO</span>
+        <span class="onscreen">R$ 1,5 MILHÃO</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Diga o número <b>uma vez só</b> e faça meio segundo de silêncio depois. É o beat mais importante do vídeo.</li>
+          <li>Nada de gráfico ou animação de fórmula: o vídeo perde se parecer aula.</li>
+          <li>Reel de abertura do mês — é o primeiro contato de quase todo mundo com o perfil.</li>
+        </ul>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p>Não diga "multiplica pelos anos". 180 mil × 25 dá 4,5 milhões; o valor presente é 1,5 milhão. A expressão correta é <b>"trazido para valor de hoje"</b>.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>O maior ativo da maioria das pessoas até a meia-idade não é o imóvel nem a carteira. É a renda que ainda está por vir — e ela não aparece em extrato nenhum.</p>
+      <p>Quanto mais instável a sua renda, menos ela vale hoje. Por isso quem vive de projeto e quem é CLT em empresa grande não deveriam carregar o mesmo risco na carteira, mesmo ganhando igual.</p>
+    </div>
+    <div class="source">Fonte: <em>Capital Humano</em> · <em>Prêmio de Estabilidade de Renda</em> · caso-modelo de 40 anos, renda instável.</div>
+  </article>
+
+  <!-- R2 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R2</div>
+      <div>
+        <h3>Você protege o bem menor</h3>
+        <div class="s-meta">
+          <span>Semana 1 · <b>quinta</b></span>
+          <span>35–40s</span>
+          <span class="layer-t">Topo</span>
+          <span>Riscos e seguros</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook">
+          <div class="tc">0–3s</div>
+          <div class="line">Você renova o seguro do carro todo ano sem pensar duas vezes.</div>
+        </div>
+        <div class="beat">
+          <div class="tc">3–32s</div>
+          <div class="line">
+            <p>O carro vale <strong>algumas dezenas de milhares de reais</strong>. A sua renda até a aposentadoria vale <strong>alguns milhões</strong>.</p>
+            <p>Ninguém acha estranho proteger o bem menor e deixar o maior descoberto. É só hábito. O seguro do carro já virou obrigação na cabeça das pessoas; o outro depende de alguém ter sentado e feito a conta com você.</p>
+            <p>E a conta não é "quanto custa". É <strong>por quantos anos</strong> as pessoas que dependem de você precisariam continuar recebendo.</p>
+          </div>
+        </div>
+        <div class="beat close">
+          <div class="tc">Fecho</div>
+          <div class="line">Alguém já fez essa conta com você?</div>
+        </div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">O BEM MENOR ESTÁ PROTEGIDO</span>
+        <span class="onscreen">POR QUANTOS ANOS?</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>A comparação faz o trabalho sozinha — <b>não explique a comparação</b>. Diga as duas frases e siga.</li>
+          <li>Reel mais compartilhável da semana: o corte final precisa terminar limpo, sem cauda, para o replay automático.</li>
+          <li>Se possível, apoio visual simples: chave de carro na mesa, nada mais.</li>
+        </ul>
+        <h4>Posicionamento</h4>
+        <div class="flag"><span class="fl">Diferencial</span><p>Se aparecer nos comentários, reforce: <b>a Telos não vende seguro</b>. É o que permite dizer de quanto você precisa em vez de vender o que está na prateleira.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Seguro de vida não é para você. É para quem continuaria pagando as contas sem a sua renda.</p>
+      <p>Se ninguém depende de você, talvez você não precise de nenhum. Se alguém depende, a pergunta nunca foi quanto custa — é por quanto tempo eles precisariam.</p>
+    </div>
+    <div class="source">Fonte: <em>Classes de Vulnerabilidade</em> (Riscos e Seguros) · <em>Capital Humano</em> · <em>Telos — Missão, Visão e Modelo</em>.</div>
+  </article>
+
+  <!-- R3 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R3</div>
+      <div>
+        <h3>Metade não é sua para decidir</h3>
+        <div class="s-meta">
+          <span>Semana 2 · <b>segunda</b></span>
+          <span>40–45s</span>
+          <span class="layer-t">Topo</span>
+          <span>Sucessão</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook">
+          <div class="tc">0–3s</div>
+          <div class="line">Metade do que você tem não é sua para decidir.</div>
+        </div>
+        <div class="beat">
+          <div class="tc">3–38s</div>
+          <div class="line">
+            <p>Se você é casado em comunhão parcial — que é o regime mais comum no Brasil — <strong>metade do patrimônio já é do seu cônjuge</strong>. Isso não é herança. Chama meação, e sai do bolo antes de qualquer partilha.</p>
+            <p>Da metade que sobra, <strong>metade é reservada por lei</strong> aos herdeiros necessários. Filhos, primeiro. Na falta deles, os pais.</p>
+            <p>Sobra <strong>um quarto</strong>. É sobre esse quarto que você decide livremente, em testamento.</p>
+            <p>A maioria das pessoas acha que decide sobre o todo.</p>
+          </div>
+        </div>
+        <div class="beat close">
+          <div class="tc">Fecho</div>
+          <div class="line">Você sabia que a sua margem de decisão era essa?</div>
+        </div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">METADE NÃO É SUA</span>
+        <span class="onscreen">SOBRA 1/4</span>
+        <h4>Ressalva obrigatória</h4>
+        <div class="flag"><span class="fl">Não pode faltar</span><p>Legenda fixa nos últimos cinco segundos e <b>primeira linha da legenda do post</b>: "Conversa de planejamento, não parecer jurídico." Rodrigo assina como CFP®, não como advogado.</p></div>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Gancho <b>seco, sem contexto antes</b>. A afirmação isolada é o que segura os três segundos.</li>
+          <li>Diga "comunhão parcial" e siga — não explique regime de bens no reel. Isso é o carrossel de quarta.</li>
+          <li>Apoio na tela ao dizer "sobra um quarto": barra dividida em quatro, um quarto aceso.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Conversa de planejamento, não parecer jurídico.</p>
+      <p>Meação não é herança: é a metade que já era do cônjuge pelo regime de bens, e ela sai antes da partilha. Só depois disso a lei reserva metade do que restou aos herdeiros necessários.</p>
+      <p>Em separação total de bens não há meação — e a conta muda inteira. Você sabe qual é o seu regime?</p>
+    </div>
+    <div class="source">Fonte: <em>Meação e Legítima</em> · <em>Ordem de Vocação Hereditária</em> (art. 1.829, CC/2002). O vault marca essas notas como simplificação do MVP.</div>
+  </article>
+
+  <!-- R4 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R4</div>
+      <div>
+        <h3>Ninguém sabe onde está</h3>
+        <div class="s-meta">
+          <span>Semana 2 · <b>quinta</b></span>
+          <span>35–40s</span>
+          <span class="layer-t">Topo</span>
+          <span>Estrutura familiar</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook">
+          <div class="tc">0–3s</div>
+          <div class="line">Se acontecesse hoje, a sua família saberia listar o que você tem?</div>
+        </div>
+        <div class="beat">
+          <div class="tc">3–32s</div>
+          <div class="line">
+            <p>Não estou falando do valor. Estou falando de <strong>onde está</strong>.</p>
+            <p>Em quantas corretoras. Em quantos bancos. Se tem imóvel, em nome de quem. Se tem previdência de um emprego antigo que você mesmo já esqueceu.</p>
+            <p>Na maioria das famílias, <strong>uma pessoa só sabe</strong>. E é justamente a pessoa que não vai estar lá.</p>
+            <p>Inventário não trava por falta de patrimônio. Trava por falta de mapa — e por falta de caixa para pagar a conta.</p>
+          </div>
+        </div>
+        <div class="beat close">
+          <div class="tc">Fecho</div>
+          <div class="line">Quem, na sua casa, conseguiria montar essa lista sem você?</div>
+        </div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">ELES SABERIAM?</span>
+        <span class="onscreen">UMA PESSOA SÓ SABE</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Reel <b>mais emocional do mês</b>. Ritmo mais lento, pausa depois de "que não vai estar lá".</li>
+          <li>Sem apoio visual. Só rosto e câmera — qualquer gráfico aqui quebra o tom.</li>
+          <li>É o reel que mais gera resposta na DM: deixe a caixinha da quinta pronta para receber.</li>
+        </ul>
+        <h4>Ressalva</h4>
+        <div class="flag"><span class="fl">Semana de sucessão</span><p>Vale a mesma linha do R3 na legenda: conversa de planejamento, não parecer jurídico.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Conversa de planejamento, não parecer jurídico.</p>
+      <p>A primeira coisa que a gente mapeia com um cliente não é a carteira. É quem depende das decisões dele — e o que a família saberia encontrar sozinha.</p>
+      <p>Não é um assunto de fim de vida. É a diferença entre um inventário de meses e um de anos.</p>
+    </div>
+    <div class="source">Fonte: <em>Etapa 0.5 — Mapeamento da Estrutura Familiar</em> · <em>Classificação de Liquidez do Patrimônio</em>.</div>
+  </article>
+</section>
+
+<section id="diaria2">
+  <div class="sec-head"><span class="eyebrow">Diária 2</span><h2>Semanas 3 e 4</h2></div>
+  <p class="lede">O funil começa a fechar. Os dois primeiros ainda são topo — falam de decisões que a pessoa já está tomando. Os dois últimos entram no método da casa e preparam o convite do story.</p>
+
+  <!-- R5 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R5</div>
+      <div>
+        <h3>A casa na praia custa três anos</h3>
+        <div class="s-meta">
+          <span>Semana 3 · <b>segunda</b></span>
+          <span>35–40s</span>
+          <span class="layer-t">Topo</span>
+          <span>Preço dos objetivos</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook">
+          <div class="tc">0–3s</div>
+          <div class="line">A casa na praia não custa oitocentos mil reais. Custa três anos.</div>
+        </div>
+        <div class="beat">
+          <div class="tc">3–33s</div>
+          <div class="line">
+            <p>Todo objetivo tem <strong>dois preços</strong>. Um está na tabela. O outro ninguém te mostra: quantos anos a mais você vai precisar trabalhar para o plano continuar fechando.</p>
+            <p>Dizer que "o plano não fecha" é abstrato. Ninguém decide nada com isso.</p>
+            <p>Dizer que a casa <strong>adia a sua aposentadoria em três anos</strong> — isso é uma decisão que dá para tomar. E você pode tomar ela e comprar mesmo assim. Só não vai ter comprado no escuro.</p>
+          </div>
+        </div>
+        <div class="beat close">
+          <div class="tc">Fecho</div>
+          <div class="line">Qual é o segundo preço do objetivo que você está pensando em comprar este ano?</div>
+        </div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">CUSTA 3 ANOS</span>
+        <span class="onscreen">TODO OBJETIVO TEM 2 PREÇOS</span>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p>Os oitocentos mil e os três anos são <b>exemplo ilustrativo</b>, não conta de cliente. Marque "exemplo" discretamente na tela no primeiro plano. O número real sai da simulação e varia caso a caso.</p></div>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>O gancho inverte a expectativa: diga <b>"três anos" antes</b> de qualquer explicação.</li>
+          <li>Reel com maior potencial de salvamento do mês — a pessoa guarda para pensar na decisão dela.</li>
+          <li>Não moralize. "Você pode comprar mesmo assim" é a frase que impede o vídeo de soar como sermão.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Nenhum objetivo é errado. O que é errado é escolher sem saber o segundo preço.</p>
+      <p>Para cada objetivo, dá para simular o plano com ele e sem ele — e a diferença aparece em anos de adiamento ou em anos de autonomia perdidos no fim da vida. É a mesma decisão, numa unidade que a gente entende.</p>
+    </div>
+    <div class="source">Fonte: <em>Impacto do Objetivo sobre a Liberdade</em> · <em>Priorização de Objetivos</em>. Valores do vídeo são ilustrativos.</div>
+  </article>
+
+  <!-- R6 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R6</div>
+      <div>
+        <h3>Quanto é o suficiente?</h3>
+        <div class="s-meta">
+          <span>Semana 3 · <b>quinta</b></span>
+          <span>35–40s</span>
+          <span class="layer-t">Topo</span>
+          <span>Liberdade financeira</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook">
+          <div class="tc">0–3s</div>
+          <div class="line">Quanto é o suficiente para você parar de trabalhar?</div>
+        </div>
+        <div class="beat">
+          <div class="tc">3–33s</div>
+          <div class="line">
+            <p>Repara que você provavelmente não tem um número. Você tem uma sensação.</p>
+            <p>"Um pouco mais." "Quando der." "Uns cinco milhões, acho."</p>
+            <p>Suficiente não é um número redondo que alguém repetiu num podcast. É quanto precisa estar rendendo para pagar a vida que você quer viver, <strong>pelo tempo que você vai viver</strong>. E a gente projeta isso <strong>até os cem anos</strong>, não até os oitenta.</p>
+            <p>Enquanto for sensação, você não sabe se está perto ou longe. E as duas coisas mudam completamente o que você deveria estar fazendo hoje.</p>
+          </div>
+        </div>
+        <div class="beat close">
+          <div class="tc">Fecho</div>
+          <div class="line">Se eu te perguntasse agora, você teria um número?</div>
+        </div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">QUANTO É O SUFICIENTE?</span>
+        <span class="onscreen">ATÉ OS 100 ANOS</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Meio segundo de <b>silêncio depois do gancho</b>, olhando para a câmera. É o único reel do mês que usa pausa como ferramenta.</li>
+          <li>As três aspas ("um pouco mais", "quando der", "uns cinco milhões") são ditas em ritmo mais rápido, como imitação.</li>
+          <li>"Até os cem anos" é o dado que diferencia — diga com naturalidade, sem justificar.</li>
+        </ul>
+        <h4>Ponte</h4>
+        <div class="flag"><span class="fl">Story de sexta</span><p>Este reel abre a pergunta e <b>não responde</b>. O convite para responder com número é o bloco de oferta da sexta.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>A conta que quase ninguém faz não é quanto rende. É por quanto tempo precisa render.</p>
+      <p>Um plano que fecha aos oitenta e quebra aos noventa não é um plano que fechou. Por isso a gente projeta até os cem — e prefere descobrir a falha na simulação do que na vida.</p>
+    </div>
+    <div class="source">Fonte: <em>Liberdade Financeira (objetivo)</em> · <em>Horizonte dos 100 Anos</em> · <em>Risco de Longevidade</em>.</div>
+  </article>
+
+  <!-- R7 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R7</div>
+      <div>
+        <h3>Risco não é quanto você aguenta perder</h3>
+        <div class="s-meta">
+          <span>Semana 4 · <b>segunda</b></span>
+          <span>40–45s</span>
+          <span class="layer-m">Meio</span>
+          <span>As duas dimensões</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook">
+          <div class="tc">0–3s</div>
+          <div class="line">Risco não é quanto você aguenta perder.</div>
+        </div>
+        <div class="beat">
+          <div class="tc">3–38s</div>
+          <div class="line">
+            <p>É quanto você <strong>pode</strong> perder sem quebrar o seu plano. São duas coisas diferentes, e o mercado mistura as duas num questionário de dez perguntas.</p>
+            <p>Uma é emocional: quanto você dorme tranquilo. A outra é financeira: quanto a sua vida aguenta. <strong>Elas não andam juntas.</strong></p>
+            <p>Tem gente que aguenta muito e não pode quase nada — renda instável, objetivo perto, ninguém para dividir a conta.</p>
+            <p>E tem gente que pode muito e não aguenta nada. Essa está deixando risco na mesa sem saber que está.</p>
+            <p>Um número só não consegue dizer as duas coisas.</p>
+          </div>
+        </div>
+        <div class="beat close">
+          <div class="tc">Fecho</div>
+          <div class="line">Quando te perguntaram o seu perfil, perguntaram qual das duas?</div>
+        </div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">AGUENTA ≠ PODE</span>
+        <span class="onscreen">UM NÚMERO NÃO DIZ AS DUAS</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Roteiro mais longo do mês. Se estourar 45s, corte o parágrafo "tem gente que aguenta muito" e mantenha só o segundo caso.</li>
+          <li><b>Não</b> nomeie "tolerância" e "capacidade" no vídeo. Use "o que você aguenta" e "o que você pode". Os termos são para o carrossel.</li>
+          <li>Apoio visual permitido: duas barras lado a lado com alturas diferentes. Nada além disso.</li>
+        </ul>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p>Não diga "questionário de dez perguntas" como se fosse regra do mercado inteiro — diga "um questionário curto". A escala que a Telos usa tem treze perguntas e é validada academicamente.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>O que você aguenta é psicológico. O que você pode é aritmético. Medir só um dos dois erra nos dois sentidos.</p>
+      <p>Erra para mais quando a pessoa é corajosa e a vida dela não comporta. Erra para menos quando a pessoa é cautelosa e está abrindo mão de risco que poderia correr com tranquilidade — e isso também custa caro, só que devagar.</p>
+    </div>
+    <div class="source">Fonte: <em>Risco tem duas dimensões</em> · <em>Por que um questionário único não basta</em> · <em>Escala Grable &amp; Lytton</em>.</div>
+  </article>
+
+  <!-- R8 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R8</div>
+      <div>
+        <h3>Sempre o menor dos dois</h3>
+        <div class="s-meta">
+          <span>Semana 4 · <b>quinta</b></span>
+          <span>40–45s</span>
+          <span class="layer-f">Fundo</span>
+          <span>Princípio do menor valor</span>
+        </div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook">
+          <div class="tc">0–3s</div>
+          <div class="line">A gente mede risco duas vezes. E recomenda sempre o menor dos dois números.</div>
+        </div>
+        <div class="beat">
+          <div class="tc">3–38s</div>
+          <div class="line">
+            <p>Mede o que você aguenta. Mede o que você pode. E fica com o menor.</p>
+            <p>Parece conservadorismo. Não é. É a única regra que impede <strong>um bom resultado de esconder um problema real</strong>.</p>
+            <p>Se o seu apartamento está <strong>cento e quarenta por cento coberto</strong> mas o seu patrimônio <strong>zera aos setenta e cinco anos</strong>, não adianta tirar a média dos dois. Em planejamento, falha não é compensável.</p>
+            <p>E a gente consegue fazer isso porque a nossa remuneração <strong>não depende do produto</strong> que você contrata. Ninguém aqui ganha por te recomendar mais risco.</p>
+          </div>
+        </div>
+        <div class="beat close">
+          <div class="tc">Fecho</div>
+          <div class="line">O seu perfil foi definido por quem ganha com ele?</div>
+        </div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">SEMPRE O MENOR</span>
+        <span class="onscreen">140% COBERTO · ZERA AOS 75</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Último reel do mês e o mais próximo de venda. O tom é de <b>regra da casa</b>, não de pitch — afirmação seca, sem sorrir no fecho.</li>
+          <li>O exemplo dos 140% e dos 75 anos é o coração do vídeo: diga os dois números na mesma respiração, para a contradição aparecer.</li>
+          <li>A pergunta final é a mais afiada dos oito. Não suavize e não emende explicação depois dela.</li>
+        </ul>
+        <h4>Ponte</h4>
+        <div class="flag"><span class="fl">Story de sexta</span><p>Este reel é a preparação direta do convite. A oferta da semana 4 abre exatamente com a pergunta do fecho.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Média permite compensação: um número muito bom paga por um número muito ruim. Em planejamento patrimonial isso não existe — se o dinheiro acaba aos setenta e cinco, não importa que outro objetivo estivesse sobre-financiado.</p>
+      <p>Por isso a regra é sempre o menor. É cara de rodar e só faz sentido em uma casa onde ninguém é remunerado por vender mais risco.</p>
+    </div>
+    <div class="source">Fonte: <em>Princípio do Menor Valor</em> · <em>Fórmula — Perfil Final</em> · <em>Telos — Missão, Visão e Modelo</em>. Exemplo dos 140% / 75 anos é o da própria nota.</div>
+  </article>
+</section>
+
+<footer>
+  Ordem de gravação sugerida por diária: R2 e R5 primeiro (mais soltos, servem de aquecimento), R3 e R8 por último (exigem precisão na fala).<br>
+  Toda peça das semanas 2 leva a ressalva de conversa de planejamento, não parecer jurídico — na tela e na primeira linha da legenda.
+</footer>
+
+</div>
+</body>
+</html>
