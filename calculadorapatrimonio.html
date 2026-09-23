@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Patrimônio</title>
+  <meta name="description" content="Quanto aportar por mês para chegar à sua meta de patrimônio, usando a curva de juros futuros DI1 da B3." />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .card { max-width: 640px; }
+    h1 { font-size: 1.6rem; margin: 0 0 4px; }
+    .lead { color: var(--muted); margin: 0 0 24px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } .card { padding: 24px 0; } }
+    label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 6px; }
+    .field input {
+      width: 100%; padding: 10px 12px; font: inherit; font-variant-numeric: tabular-nums;
+      border: 1px solid var(--border); border-radius: 8px; background: #fff;
+      color: #000; -webkit-text-fill-color: #000; font-weight: 500;
+    }
+    .field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+    .hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; min-height: 1.2em; }
+    .result {
+      margin-top: 28px; padding: 24px; border-radius: 12px; background: #fff; border: 1px solid var(--border); color: #000;
+    }
+    .result .label { font-size: 0.85rem; color: #333; }
+    .result .big { font-size: 2.2rem; font-weight: 700; font-variant-numeric: tabular-nums; margin: 2px 0 16px; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 520px) { .stats { grid-template-columns: 1fr; } }
+    .stats div span { display: block; font-size: 0.8rem; color: #333; }
+    .stats div strong { font-variant-numeric: tabular-nums; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+    th, td { padding: 8px 4px; border-bottom: 1px solid var(--border); text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    th { font-weight: 600; color: #333; font-size: 0.8rem; }
+    .note { font-size: 0.8rem; color: var(--muted); margin-top: 20px; }
+    .warn { color: #a15c00; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Calculadora de Patrimônio</h1>
+    <p class="lead">Quanto aportar por mês para chegar à meta, rendendo pela curva de juros futuros (DI1) negociada na B3.</p>
+
+    <form id="calc" class="grid" autocomplete="off" onsubmit="return false">
+      <div class="field">
+        <label for="pv">Patrimônio atual (R$)</label>
+        <input id="pv" inputmode="decimal" value="1.000.000,00" />
+      </div>
+      <div class="field">
+        <label for="fv">Meta (R$)</label>
+        <input id="fv" inputmode="decimal" value="5.000.000,00" />
+      </div>
+      <div class="field">
+        <label for="target">Data-alvo</label>
+        <input id="target" type="date" value="2030-12-31" />
+      </div>
+      <div class="hint" id="curveInfo" style="grid-column: 1 / -1; margin-top: -8px">Carregando curva DI da B3…</div>
+    </form>
+
+    <section class="result" id="result" hidden>
+      <div class="label">Aporte mensal necessário</div>
+      <div class="big" id="pmt">—</div>
+      <div class="stats">
+        <div><span>Taxa usada</span><strong id="rate">—</strong></div>
+        <div><span>Total aportado</span><strong id="contrib">—</strong></div>
+        <div><span>Rendimento</span><strong id="interest">—</strong></div>
+      </div>
+      <table>
+        <thead><tr><th>Data</th><th>Aportado acumulado</th><th>Patrimônio projetado</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+
+    <p class="note">
+      Aportes mensais do próximo mês até a data-alvo, a 100% do DI. A taxa vem dos contratos DI1 da B3
+      (último negócio, ou ajuste do dia anterior), interpolada em <em>flat forward</em> por dias úteis (base 252).
+      Valores nominais, antes de impostos e inflação. Não é recomendação de investimento.
+    </p>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+    const pctFmt = (x) => (x * 100).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "% a.a.";
+    const dateFmt = (d) => d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
+
+    function parseNum(s) {
+      s = String(s).trim().replace(/[R$\s]/g, "");
+      if (s.includes(",") || /^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, "").replace(",", ".");
+      const n = parseFloat(s);
+      return Number.isFinite(n) ? n : NaN;
+    }
+
+    // ---- Dias úteis (feriados nacionais, como no calendário da B3) ----
+    const utc = (y, m, d) => new Date(Date.UTC(y, m, d));
+    const addDays = (d, n) => new Date(d.getTime() + n * 864e5);
+    function easter(y) {
+      const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4;
+      const f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
+      const h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4;
+      const l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+      const month = Math.floor((h + l - 7 * m + 114) / 31), day = ((h + l - 7 * m + 114) % 31) + 1;
+      return utc(y, month - 1, day);
+    }
+    const holidayCache = {};
+    function holidays(y) {
+      if (holidayCache[y]) return holidayCache[y];
+      const e = easter(y);
+      const list = [
+        utc(y, 0, 1), utc(y, 3, 21), utc(y, 4, 1), utc(y, 8, 7), utc(y, 9, 12),
+        utc(y, 10, 2), utc(y, 10, 15), utc(y, 11, 25),
+        addDays(e, -48), addDays(e, -47), addDays(e, -2), addDays(e, 60),
+      ];
+      if (y >= 2024) list.push(utc(y, 10, 20)); // Consciência Negra
+      return (holidayCache[y] = new Set(list.map((d) => d.getTime())));
+    }
+    const isBizDay = (d) => d.getUTCDay() % 6 !== 0 && !holidays(d.getUTCFullYear()).has(d.getTime());
+    // Dias úteis em [from, to)
+    function bizDays(from, to) {
+      let n = 0;
+      for (let d = from; d < to; d = addDays(d, 1)) if (isBizDay(d)) n++;
+      return n;
+    }
+
+    // ---- Curva ----
+    const now = new Date();
+    const TODAY = utc(now.getFullYear(), now.getMonth(), now.getDate());
+    let vertices = null; // [{du, rate, symbol, date}]
+
+    // Fator de acumulação de hoje até `du` dias úteis, a 100% do DI.
+    // Entre vértices, a taxa diária a termo é constante (flat forward).
+    function factor(du) {
+      let prevDu = 0, prevF = 1;
+      for (const v of vertices) {
+        if (v.du <= prevDu) continue;
+        const vF = Math.pow(1 + v.rate, v.du / 252);
+        // Além do último vértice: mantém a última taxa a termo
+        if (du <= v.du || v === vertices[vertices.length - 1]) {
+          return prevF * Math.pow(vF / prevF, (du - prevDu) / (v.du - prevDu));
+        }
+        prevDu = v.du; prevF = vF;
+      }
+    }
+
+    function addMonths(d, k) {
+      const y = d.getUTCFullYear(), m = d.getUTCMonth() + k, day = d.getUTCDate();
+      const lastDay = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+      return utc(y, m, Math.min(day, lastDay));
+    }
+
+    function compute() {
+      const pv = parseNum($("pv").value);
+      const fv = parseNum($("fv").value);
+      const [ty, tm, td] = ($("target").value || "").split("-").map(Number);
+      const target = ty ? utc(ty, tm - 1, td) : null;
+
+      if (!vertices || !target || target <= TODAY || [pv, fv].some(Number.isNaN)) {
+        $("result").hidden = true;
+        return;
+      }
+
+      const duT = bizDays(TODAY, target);
+      const FT = factor(duT);
+
+      // Datas dos aportes: hoje + 1 mês, + 2 meses, … até a data-alvo
+      const dates = [];
+      for (let k = 1; addMonths(TODAY, k) <= target; k++) dates.push(addMonths(TODAY, k));
+      const fDates = dates.map((d) => factor(bizDays(TODAY, d)));
+
+      const sumW = fDates.reduce((s, f) => s + FT / f, 0);
+      const pmtRaw = dates.length ? (fv - pv * FT) / sumW : NaN;
+      const pmt = Math.max(0, pmtRaw);
+
+      const effRate = Math.pow(FT, 252 / duT) - 1;
+      $("rate").textContent = pctFmt(effRate);
+      $("pmt").textContent = dates.length ? brl.format(pmt) : "Prazo menor que 1 mês";
+      if (pmtRaw <= 0) $("pmt").textContent = "R$ 0,00 — meta já garantida";
+      $("contrib").textContent = brl.format(pmt * dates.length);
+      const finalValue = pv * FT + pmt * sumW;
+      $("interest").textContent = brl.format(finalValue - pv - pmt * dates.length);
+
+      // Evolução: fim de cada ano + data-alvo
+      const checkpoints = [];
+      for (let y = TODAY.getUTCFullYear(); y < target.getUTCFullYear(); y++) checkpoints.push(utc(y, 11, 31));
+      checkpoints.push(target);
+      $("rows").innerHTML = checkpoints.map((c) => {
+        const Fc = factor(bizDays(TODAY, c));
+        let value = pv * Fc, paid = 0;
+        dates.forEach((d, i) => { if (d <= c) { value += pmt * Fc / fDates[i]; paid += pmt; } });
+        return `<tr><td>${dateFmt(c)}</td><td>${brl.format(paid)}</td><td>${brl.format(value)}</td></tr>`;
+      }).join("");
+
+      $("result").hidden = false;
+      describeCurve(target);
+    }
+
+    function describeCurve(target) {
+      const info = $("curveInfo");
+      const after = vertices.find((v) => v.date >= target);
+      const before = [...vertices].reverse().find((v) => v.date < target);
+      const parts = [before, after].filter(Boolean).map((v) => `${v.symbol} ${pctFmt(v.rate)}`);
+      info.textContent = `Curva DI1 B3 (${curveUpdated}) — vértices usados: ${parts.join(" · ")}`;
+    }
+
+    let curveUpdated = "";
+    async function loadCurve() {
+      try {
+        const res = await fetch("/api/di");
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || res.status);
+        vertices = data.curve.map((c) => {
+          const [y, m, d] = c.maturity.split("-").map(Number);
+          const date = utc(y, m - 1, d);
+          return { symbol: c.symbol, rate: c.rate / 100, date, du: bizDays(TODAY, date) };
+        }).filter((v) => v.du > 0);
+        curveUpdated = data.updatedAt ? new Date(data.updatedAt.replace(" ", "T")).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" }) : "";
+      } catch (err) {
+        $("curveInfo").innerHTML = `<span class="warn">Não foi possível carregar a curva DI da B3 (${err.message}). Tente recarregar a página.</span>`;
+      }
+      compute();
+    }
+
+    // Formata R$ ao sair do campo
+    for (const id of ["pv", "fv"]) {
+      $(id).addEventListener("blur", () => {
+        const n = parseNum($(id).value);
+        if (!Number.isNaN(n)) $(id).value = n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      });
+    }
+    $("calc").addEventListener("input", compute);
+    loadCurve();
+  </script>
+</body>
+</html>
