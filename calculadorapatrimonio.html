@@ -12,13 +12,14 @@
     h1 { font-size: 1.6rem; margin: 0 0 4px; }
     .lead { color: var(--muted); margin: 0 0 24px; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } .card { padding: 24px 0; } }
     label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 6px; }
     .field input {
-      width: 100%; padding: 10px 12px; font: inherit; font-variant-numeric: tabular-nums;
+      display: block; width: 100%; min-width: 0; min-height: 46px; padding: 10px 12px;
+      font: inherit; font-size: 16px; font-variant-numeric: tabular-nums; -webkit-appearance: none; appearance: none;
       border: 1px solid var(--border); border-radius: 8px; background: #fff;
       color: #000; -webkit-text-fill-color: #000; font-weight: 500;
     }
+    .field input::-webkit-date-and-time-value { text-align: left; }
     .field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
     .hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; min-height: 1.2em; }
     .result {
@@ -27,15 +28,31 @@
     .result .label { font-size: 0.85rem; color: #333; }
     .result .big { font-size: 2.2rem; font-weight: 700; font-variant-numeric: tabular-nums; margin: 2px 0 16px; }
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    @media (max-width: 520px) { .stats { grid-template-columns: 1fr; } }
     .stats div span { display: block; font-size: 0.8rem; color: #333; }
     .stats div strong { font-variant-numeric: tabular-nums; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
     table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
     th, td { padding: 8px 4px; border-bottom: 1px solid var(--border); text-align: right; }
     th:first-child, td:first-child { text-align: left; }
     th { font-weight: 600; color: #333; font-size: 0.8rem; }
     .note { font-size: 0.8rem; color: var(--muted); margin-top: 20px; }
     .warn { color: #a15c00; }
+
+    @media (max-width: 520px) {
+      body { padding: 24px 16px; }
+      .card { padding: 0; }
+      h1 { font-size: 1.4rem; }
+      .lead { font-size: 0.95rem; margin-bottom: 20px; }
+      .grid { grid-template-columns: 1fr; gap: 12px; }
+      .result { margin-top: 20px; padding: 16px; }
+      .result .big { font-size: 1.9rem; margin-bottom: 12px; }
+      .stats { grid-template-columns: 1fr; gap: 0; }
+      .stats div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border); }
+      .stats div span { display: inline; }
+      table { font-size: 0.8rem; margin-top: 12px; }
+      th, td { padding: 8px 2px; }
+      .opt { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -67,10 +84,12 @@
         <div><span>Total aportado</span><strong id="contrib">—</strong></div>
         <div><span>Rendimento</span><strong id="interest">—</strong></div>
       </div>
-      <table>
-        <thead><tr><th>Data</th><th>Aportado acumulado</th><th>Patrimônio projetado</th></tr></thead>
-        <tbody id="rows"></tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Data</th><th>Aportado<span class="opt"> acumulado</span></th><th>Patrimônio<span class="opt"> projetado</span></th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
     </section>
 
     <p class="note">
@@ -83,6 +102,7 @@
   <script>
     const $ = (id) => document.getElementById(id);
     const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+    const brl0 = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
     const pctFmt = (x) => (x * 100).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "% a.a.";
     const dateFmt = (d) => d.toLocaleDateString("pt-BR", { timeZone: "UTC" });
 
@@ -189,7 +209,7 @@
         const Fc = factor(bizDays(TODAY, c));
         let value = pv * Fc, paid = 0;
         dates.forEach((d, i) => { if (d <= c) { value += pmt * Fc / fDates[i]; paid += pmt; } });
-        return `<tr><td>${dateFmt(c)}</td><td>${brl.format(paid)}</td><td>${brl.format(value)}</td></tr>`;
+        return `<tr><td>${dateFmt(c)}</td><td>${brl0.format(paid)}</td><td>${brl0.format(value)}</td></tr>`;
       }).join("");
 
       $("result").hidden = false;
