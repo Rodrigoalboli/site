@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roteiros do Mês 2</title>
+<meta name="description" content="Os sete roteiros de reel do segundo mes da Telos: gancho de tres segundos, fala completa marcada por tempo, texto na tela, notas de gravacao e legenda do post.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Roteiros do Mês 2">
+<meta property="og:description" content="Roteiros de produção para os reels da Télos.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%99%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  /* Reset */
+  :root{color-scheme:light}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --surface-2:#E7EAEF;
+    --ink:#111821; --ink-2:#39434F; --muted:#6B7683;
+    --line:#D3D9E0; --line-strong:#B4BDC7;
+    --reel:#2F72B0; --reel-soft:#E3EEF7;
+    --story:#C96A2B; --story-soft:#F7E9DD;
+    --topo:#2F72B0; --meio:#6B7683; --fundo:#C96A2B;
+    --shadow:0 1px 2px rgba(17,24,33,.05), 0 8px 24px -16px rgba(17,24,33,.28);
+    --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --f-body:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --f-mono:"IBM Plex Mono","SFMono-Regular",Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0E141B; --surface:#161E27; --surface-2:#1E2833;
+      --ink:#E8EDF3; --ink-2:#BEC8D3; --muted:#8A95A2;
+      --line:#2A3540; --line-strong:#3B4854;
+      --reel:#6BA9DC; --reel-soft:#172938;
+      --story:#E29257; --story-soft:#2E1E12;
+      --topo:#6BA9DC; --meio:#8A95A2; --fundo:#E29257;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0E141B; --surface:#161E27; --surface-2:#1E2833;
+    --ink:#E8EDF3; --ink-2:#BEC8D3; --muted:#8A95A2;
+    --line:#2A3540; --line-strong:#3B4854;
+    --reel:#6BA9DC; --reel-soft:#172938;
+    --story:#E29257; --story-soft:#2E1E12;
+    --topo:#6BA9DC; --meio:#8A95A2; --fundo:#E29257;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--paper); color:var(--ink);
+    font-family:var(--f-body); font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px 96px}
+  h1,h2,h3,h4{font-family:var(--f-display); text-wrap:balance; margin:0}
+  p{margin:0}
+  .eyebrow{font-family:var(--f-mono); font-size:11px; font-weight:500;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--muted)}
+
+  header{padding:72px 0 38px; border-bottom:1px solid var(--line-strong)}
+  header h1{font-size:clamp(38px,6vw,62px); font-weight:800; letter-spacing:-.03em;
+    line-height:1.03; margin:18px 0 0; max-width:14ch}
+  .thesis{font-size:clamp(18px,2.2vw,22px); color:var(--ink-2); margin-top:22px; max-width:63ch; line-height:1.5}
+  .thesis b{color:var(--ink); font-weight:600}
+  .facts{display:flex; flex-wrap:wrap; gap:10px 40px; margin-top:32px;
+    font-family:var(--f-mono); font-size:12.5px; color:var(--muted)}
+  .facts span b{font-family:var(--f-display); font-weight:700; font-size:15px;
+    color:var(--ink); margin-right:7px; font-variant-numeric:tabular-nums}
+
+  section{padding-top:58px}
+  .sec-head{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap}
+  .sec-head h2{font-size:clamp(23px,3vw,30px); font-weight:700; letter-spacing:-.02em}
+  .lede{color:var(--ink-2); max-width:70ch; margin-top:10px}
+
+  .rules{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px}
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:3px; padding:22px 24px 24px}
+  .panel h3{font-size:17px; font-weight:700; margin-bottom:14px; letter-spacing:-.01em}
+  .panel ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px}
+  .panel li{font-size:15.5px; line-height:1.5; color:var(--ink-2); padding-left:20px; position:relative}
+  .panel li::before{content:""; position:absolute; left:0; top:.62em; width:8px; height:1.5px; background:var(--line-strong)}
+  .panel li b{color:var(--ink); font-weight:600}
+  .panel.warn li::before{background:var(--story)}
+
+  .tablewrap{overflow-x:auto; margin-top:24px; border:1px solid var(--line); border-radius:3px; background:var(--surface)}
+  table{border-collapse:collapse; width:100%; min-width:620px}
+  th,td{text-align:left; padding:13px 18px; border-bottom:1px solid var(--line); font-size:15px; vertical-align:top}
+  th{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); font-weight:500; background:var(--surface-2)}
+  tbody tr:last-child td{border-bottom:0}
+  td.k{font-family:var(--f-mono); font-size:13px; color:var(--reel); font-weight:600; white-space:nowrap}
+  td.w{color:var(--ink-2)}
+  td.d{font-family:var(--f-mono); font-size:12.5px; color:var(--muted); white-space:nowrap}
+  td.lay b{font-family:var(--f-mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase}
+  td.lay .t{color:var(--topo)} td.lay .m{color:var(--meio)} td.lay .f{color:var(--fundo)}
+
+  .script{margin-top:24px; background:var(--surface); border:1px solid var(--line);
+    border-radius:3px; box-shadow:var(--shadow); overflow:hidden; border-top:3px solid var(--reel)}
+  .s-head{padding:20px 26px 18px; border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,var(--surface-2),transparent);
+    display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:baseline}
+  .s-num{font-family:var(--f-display); font-weight:800; font-size:24px; letter-spacing:-.02em;
+    color:var(--reel); font-variant-numeric:tabular-nums}
+  .s-head h3{font-size:clamp(20px,2.5vw,26px); font-weight:700; letter-spacing:-.02em; line-height:1.15}
+  .s-meta{display:flex; flex-wrap:wrap; gap:8px 18px; margin-top:9px;
+    font-family:var(--f-mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+  .s-meta b{color:var(--ink); font-weight:600}
+  .s-meta .layer-t{color:var(--topo); font-weight:600}
+  .s-meta .layer-m{color:var(--meio); font-weight:600}
+  .s-meta .layer-f{color:var(--fundo); font-weight:600}
+
+  .s-body{display:grid; grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+  .falas{padding:8px 26px 26px; border-right:1px solid var(--line); min-width:0}
+  .tec{padding:8px 24px 26px; background:var(--surface-2); min-width:0}
+
+  .beat{padding:18px 0 0; display:grid; grid-template-columns:64px 1fr; gap:16px; align-items:start}
+  .beat + .beat{border-top:1px solid var(--line); margin-top:16px; padding-top:16px}
+  .tc{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--muted); padding-top:5px; font-variant-numeric:tabular-nums}
+  .beat.hook .tc{color:var(--reel); font-weight:600}
+  .beat.hook .line{font-size:21px; line-height:1.35; font-weight:600; color:var(--ink); letter-spacing:-.01em}
+  .beat.close .tc{color:var(--story); font-weight:600}
+  .beat.close .line{font-size:18.5px; line-height:1.4; color:var(--ink); font-weight:600}
+  .line{font-size:17px; line-height:1.6; color:var(--ink-2)}
+  .line p + p{margin-top:11px}
+  .line strong{color:var(--ink); font-weight:600}
+
+  .tec h4{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); font-weight:500; margin:22px 0 9px}
+  .tec h4:first-child{margin-top:18px}
+  .onscreen{font-family:var(--f-display); font-weight:800; font-size:15px; letter-spacing:.02em;
+    background:var(--ink); color:var(--paper); display:inline-block; padding:6px 11px; border-radius:2px; line-height:1.25}
+  .onscreen + .onscreen{margin-top:7px}
+  .tec p, .tec li{font-size:14.5px; line-height:1.5; color:var(--ink-2)}
+  .tec ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px}
+  .tec li{padding-left:16px; position:relative}
+  .tec li::before{content:""; position:absolute; left:0; top:.62em; width:7px; height:1.5px; background:var(--line-strong)}
+  .tec li b{color:var(--ink); font-weight:600}
+  .flag{background:var(--story-soft); border-left:3px solid var(--story); padding:12px 14px; border-radius:0 2px 2px 0}
+  .flag p{color:var(--ink); font-size:14.5px}
+  .flag .fl{font-family:var(--f-mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--story); font-weight:600; display:block; margin-bottom:5px}
+
+  .s-caption{padding:18px 26px 20px; border-top:1px solid var(--line); background:var(--surface)}
+  .s-caption .eyebrow{display:block; margin-bottom:9px}
+  .s-caption p{font-size:16px; line-height:1.55; color:var(--ink-2); max-width:68ch}
+  .s-caption p + p{margin-top:9px}
+
+  .source{padding:12px 26px 14px; border-top:1px solid var(--line);
+    font-family:var(--f-mono); font-size:11px; color:var(--muted); line-height:1.6}
+  .source em{font-style:normal; color:var(--ink-2)}
+
+  footer{margin-top:64px; padding-top:22px; border-top:1px solid var(--line-strong);
+    font-family:var(--f-mono); font-size:12px; color:var(--muted); line-height:1.7}
+
+  @media (max-width:880px){
+    .rules{grid-template-columns:1fr}
+    .s-body{grid-template-columns:1fr}
+    .falas{border-right:0; border-bottom:1px solid var(--line)}
+    .s-head{grid-template-columns:1fr; gap:6px}
+    .beat{grid-template-columns:1fr; gap:6px}
+    body{font-size:16px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+  :focus-visible{outline:2px solid var(--reel); outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Télos · CFP® · Roteiros para produção · Mês 2</div>
+  <h1>Roteiros do mês 2</h1>
+  <p class="thesis">Sete reels. <b>É a leva mais próxima de investimento de todas</b> — quatro dos sete falam de carteira, índice, risco e retorno, sem nenhum deles exigir vocabulário técnico. Mesma estrutura dos oito primeiros: gancho de três segundos, um número real, pergunta no fecho.</p>
+  <div class="facts">
+    <span><b>7</b>roteiros</span>
+    <span><b>2</b>diárias de gravação</span>
+    <span><b>4</b>topo · 2 meio · 1 fundo</span>
+    <span><b>30–45s</b>cada</span>
+    <span><b>0</b>ressalvas jurídicas</span>
+  </div>
+</header>
+
+
+
+<section id="diaria1">
+  <div class="sec-head"><span class="eyebrow">Diária 1</span><h2>Os quatro de topo</h2></div>
+  <p class="lede">Alcance. Nenhum deles exige que a pessoa já tenha patrimônio, já tenha plano ou saiba qualquer termo técnico — que é a única coisa que mantém o reel sendo formato de alcance.</p>
+
+  <!-- R17 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R17</div>
+      <div>
+        <h3>A sua profissão já é uma alocação</h3>
+        <div class="s-meta"><span>Semana 1 · <b>segunda</b></span><span>40–45s</span><span class="layer-t">Topo</span><span>Estabilidade de renda</span></div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook"><div class="tc">0–3s</div><div class="line">A sua profissão já é uma escolha de investimento. Você só não assinou nada.</div></div>
+        <div class="beat"><div class="tc">3–38s</div><div class="line">
+          <p>Quem é concursado tem uma renda que chega todo mês, independente do mercado. Dentro do seu patrimônio, isso funciona como um <strong>título de renda fixa enorme</strong>.</p>
+          <p>Quem é sócio, comissionado ou vive de projeto tem uma renda que sobe e desce junto com a economia. Isso funciona como <strong>ação</strong>.</p>
+          <p>Duas pessoas ganhando exatamente o mesmo não deveriam ter a mesma carteira. Uma já começa o jogo conservadora sem ter escolhido. A outra já começa arrojada sem saber.</p>
+          <p>E ninguém pergunta isso antes de montar carteira.</p>
+        </div></div>
+        <div class="beat close"><div class="tc">Fecho</div><div class="line">A sua renda se parece mais com renda fixa ou com ação?</div></div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">RENDA FIXA OU AÇÃO?</span>
+        <span class="onscreen">VOCÊ JÁ ESCOLHEU</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Os dois exemplos em <b>ritmo paralelo</b>, mesma entonação. O paralelismo é o argumento — é o roteiro que mais pede controle da leva.</li>
+          <li>Fala com dois públicos opostos no mesmo vídeo: funcionário estável e dono de negócio. Os dois se reconhecem.</li>
+          <li>Grave por último na diária 1, com a voz já aquecida.</li>
+        </ul>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p>A analogia para aí. <b>Não diga qual carteira cada um deveria ter</b>, nem percentual, nem classe. O vídeo nomeia a pergunta; a resposta não cabe em quarenta segundos.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Na literatura de alocação, a renda do trabalho entra na conta como um ativo — e o tipo de ativo depende de quão previsível ela é.</p>
+      <p>Um professor concursado carrega algo parecido com um título indexado à inflação. Um sócio de empresa carrega algo parecido com ação. E quem já tem muita exposição a risco pelo lado da renda normalmente deveria carregar menos pelo lado da carteira.</p>
+      <p>Ninguém pergunta isso num questionário de perfil. A sua renda se parece mais com o quê?</p>
+    </div>
+    <div class="source">Fonte: <em>Prêmio de Estabilidade de Renda</em> · <em>Capital Humano</em> · Ibbotson, Chen, Milevsky &amp; Zhu (2005).</div>
+  </article>
+
+  <!-- R21 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R21</div>
+      <div>
+        <h3>Contra qual índice você está competindo?</h3>
+        <div class="s-meta"><span>Semana 1 · <b>quinta</b></span><span>35–40s</span><span class="layer-t">Topo</span><span>Investimento por objetivo</span></div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook"><div class="tc">0–3s</div><div class="line">A sua carteira está competindo com um índice que não sabe nada sobre a sua vida.</div></div>
+        <div class="beat"><div class="tc">3–32s</div><div class="line">
+          <p>Bateu o índice, foi um bom ano. Não bateu, foi um ano ruim. É assim que quase todo mundo mede.</p>
+          <p>Só que o índice não sabe que você quer trocar de casa daqui a quatro anos. Não sabe que tem uma faculdade em oito. Não sabe até quando esse dinheiro precisa durar.</p>
+          <p>Uma carteira que bateu o índice e não comprou a casa <strong>falhou</strong>. Uma que ficou abaixo dele e comprou, com folga, <strong>funcionou</strong>.</p>
+          <p>Risco não é oscilar. Risco é não chegar.</p>
+        </div></div>
+        <div class="beat close"><div class="tc">Fecho</div><div class="line">O que a sua carteira está tentando vencer?</div></div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">RISCO É NÃO CHEGAR</span>
+        <span class="onscreen">BATEU O ÍNDICE. E DAÍ?</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>"Risco não é oscilar, risco é não chegar" é a frase que vai para o print. <b>Diga isolada</b>, com pausa dos dois lados.</li>
+          <li>O par falhou/funcionou pede ênfase oposta na mesma entonação. É a virada do vídeo.</li>
+          <li>Reel mais citável da leva — bom candidato a story destacado permanente.</li>
+        </ul>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p>Diga <b>"um índice"</b>, genérico. Nomear CDI, Ibovespa ou qualquer benchmark transforma uma tese de método em opinião sobre mercado — e abre uma discussão que não é a do vídeo.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Quando a régua é um índice, sucesso é relativo a um número que não tem nenhuma relação com a sua vida. Quando a régua é o seu objetivo, sucesso passa a ser verificável: aconteceu na data, ou não aconteceu.</p>
+      <p>Isso muda inclusive a definição de risco. Deixa de ser quanto a carteira oscila e passa a ser a chance de o objetivo não acontecer — que é a única coisa que você sente de verdade.</p>
+    </div>
+    <div class="source">Fonte: <em>Investimento por Objetivo</em> (tabela de deslocamento conceitual) · <em>Sucesso do Planejamento</em>.</div>
+  </article>
+
+  <!-- R22 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R22</div>
+      <div>
+        <h3>O objetivo que não tem data de fim</h3>
+        <div class="s-meta"><span>Semana 2 · <b>segunda</b></span><span>35–40s</span><span class="layer-t">Topo</span><span>Objetivo recorrente</span></div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook"><div class="tc">0–3s</div><div class="line">Tem um tipo de objetivo que quase ninguém coloca na conta: o que não acaba.</div></div>
+        <div class="beat"><div class="tc">3–32s</div><div class="line">
+          <p>Ajudar um filho todos os meses. Bancar a mensalidade de alguém. Sustentar um pai.</p>
+          <p>Esses não têm uma data em que você paga e pronto. Eles <strong>atravessam a sua aposentadoria</strong> e continuam do outro lado.</p>
+          <p>Um gasto assim muda duas coisas ao mesmo tempo: quanto você consegue juntar antes, e quanto você precisa ter depois. Por isso ele é o que mais desloca um plano.</p>
+          <p>E é justamente o que ninguém lembra de mencionar — porque já virou rotina, e rotina não aparece em planilha nenhuma.</p>
+        </div></div>
+        <div class="beat close"><div class="tc">Fecho</div><div class="line">Qual gasto da sua vida não tem data para acabar?</div></div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">ANTES E DEPOIS, AO MESMO TEMPO</span>
+        <span class="onscreen">ROTINA NÃO ENTRA NA PLANILHA</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Os três exemplos no começo, em ritmo de lista rápida. <b>São eles que fazem alguém se reconhecer</b> nos primeiros segundos.</li>
+          <li>Tom sem julgamento. Ajudar família não é erro de planejamento — o erro é não contar.</li>
+          <li>Alta taxa de comentário: é um tema que as pessoas querem dizer em voz alta.</li>
+        </ul>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p>Não dê o impacto em números. O efeito de um objetivo recorrente que atravessa a aposentadoria <b>adia e encurta ao mesmo tempo</b>, e o tamanho depende inteiramente do caso.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Objetivos com data são fáceis de lembrar: a casa, o carro, a faculdade. Os recorrentes somem da conversa porque já estão incorporados à rotina — e, por isso, nunca entram no plano.</p>
+      <p>São eles que fazem o plano render menos antes e exigir mais depois. A primeira vez que um cliente vê esse número costuma ser a parte mais surpreendente do diagnóstico.</p>
+      <p>Qual é o seu?</p>
+    </div>
+    <div class="source">Fonte: <em>Impacto do Objetivo sobre a Liberdade</em> (tipo misto) · <em>Etapa 2 — Mapeamento de Objetivos</em> · <em>Risco de Longevidade</em>.</div>
+  </article>
+
+  <!-- R15 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R15</div>
+      <div>
+        <h3>Se você não entendeu, o problema não é você</h3>
+        <div class="s-meta"><span>Semana 2 · <b>quinta</b></span><span>35–40s</span><span class="layer-t">Topo</span><span>Papo reto</span></div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook"><div class="tc">0–3s</div><div class="line">Se você saiu de uma reunião sobre o seu dinheiro sem entender o que contratou, o problema não é você.</div></div>
+        <div class="beat"><div class="tc">3–32s</div><div class="line">
+          <p>Existe jargão que <strong>explica</strong> e existe jargão que <strong>confunde de propósito</strong>. Os dois usam exatamente as mesmas palavras.</p>
+          <p>A diferença aparece num teste simples: a pessoa consegue te explicar aquilo em uma frase, sem termo nenhum?</p>
+          <p>Quase sempre consegue. Quando escolhe não fazer, foi escolha.</p>
+          <p>E quando o jargão é necessário para te convencer, geralmente aquilo não é recomendação. É venda.</p>
+        </div></div>
+        <div class="beat close"><div class="tc">Fecho</div><div class="line">Você conseguiria explicar para outra pessoa o que contratou da última vez?</div></div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">O PROBLEMA NÃO É VOCÊ</span>
+        <span class="onscreen">EXPLICA OU CONVENCE?</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li><b>Maior potencial de compartilhamento da leva.</b> O gancho tira a culpa de quem assiste, e isso é o que faz alguém mandar para outra pessoa.</li>
+          <li>Ritmo mais rápido que o resto. É o reel mais coloquial dos sete.</li>
+          <li>Sem apoio visual. A fala sustenta sozinha.</li>
+        </ul>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p>Critique a <b>prática</b>, nunca uma instituição, um produto específico ou uma categoria de profissional. "Quem vende" é aceitável; nome de banco, corretora ou cargo não é.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Explicar o complexo de forma simples é obrigação de quem recomenda, não mérito de quem escuta.</p>
+      <p>Quando alguém precisa de vocabulário técnico para te convencer de alguma coisa, o vocabulário não está ali para informar. Está ali para encerrar a pergunta.</p>
+      <p>A regra que a gente usa internamente é literal: se o texto precisa ser reescrito em jargão para parecer competente, o público está errado.</p>
+    </div>
+    <div class="source">Fonte: <em>Pilar 4 — Papo Reto</em> · <em>Linguagem de Bastidor vs Linguagem de Cliente</em>.</div>
+  </article>
+</section>
+
+<section id="diaria2">
+  <div class="sec-head"><span class="eyebrow">Diária 2</span><h2>Os três do método</h2></div>
+  <p class="lede">Aqui o funil fecha. Os dois primeiros assumem alguma familiaridade e dizem o que ninguém diz — inclusive que você talvez esteja conservador demais. O último é o convite, e fecha o mês oferecendo alívio em vez de alerta.</p>
+
+  <!-- R23 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R23</div>
+      <div>
+        <h3>Você pode estar correndo risco de menos</h3>
+        <div class="s-meta"><span>Semana 3 · <b>segunda</b></span><span>35–40s</span><span class="layer-m">Meio</span><span>Capacidade não utilizada</span></div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook"><div class="tc">0–3s</div><div class="line">Tem gente perdendo dinheiro por estar segura demais. E ninguém avisa.</div></div>
+        <div class="beat"><div class="tc">3–32s</div><div class="line">
+          <p>A conversa sobre risco é sempre sobre correr menos. Existe o outro lado, e ele quase não é dito.</p>
+          <p>Quando a sua situação financeira aguenta mais risco do que o seu estômago, você está deixando <strong>risco disponível na mesa</strong>. Isso tem um custo — só que é um custo lento, que não dói em nenhum dia específico. Por isso ninguém reclama dele.</p>
+          <p>E é uma <strong>escolha legítima.</strong> A gente não empurra ninguém para cima.</p>
+          <p>Mas é bem diferente escolher ficar onde está e não saber que estava escolhendo.</p>
+        </div></div>
+        <div class="beat close"><div class="tc">Fecho</div><div class="line">Você está conservador por decisão ou por falta de conversa?</div></div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">RISCO NA MESA</span>
+        <span class="onscreen">ESCOLHA OU DESCONHECIMENTO?</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Reel <b>mais contraintuitivo do projeto</b>: uma consultoria dizendo que talvez você devesse correr mais risco, sem vender nada.</li>
+          <li>"É uma escolha legítima" <b>não pode ser cortada na edição</b>, nem se o vídeo estourar o tempo. Sem ela, o reel vira empurrão.</li>
+          <li>O fecho é a pergunta mais confortável da leva — não acusa, oferece.</li>
+        </ul>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p>Nenhuma frase pode soar como recomendação de aumentar exposição. O conteúdo é: <b>existe uma escolha e ela deveria ser consciente</b>. Nada de "você deveria", nada de classe de ativo, nada de percentual.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Quando a capacidade financeira de alguém é bem maior que a disposição emocional, o perfil final fica limitado pela segunda — e isso é correto, porque uma carteira que tira o sono não se sustenta.</p>
+      <p>Só que esse custo existe e raramente é nomeado. Dizer em voz alta que há risco disponível não é empurrar ninguém: é devolver a decisão para quem é dono dela.</p>
+      <p>A conversa pode ser reaberta quando você quiser, sem pressa e sem pressão.</p>
+    </div>
+    <div class="source">Fonte: <em>Tag — Capacidade Não Utilizada</em> · <em>Princípio do Menor Valor</em> · <em>Etapa 8 — Revisão Periódica</em>.</div>
+  </article>
+
+  <!-- R24 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R24</div>
+      <div>
+        <h3>A carteira perfeita que você vende na queda</h3>
+        <div class="s-meta"><span>Semana 3 · <b>quinta</b></span><span>40–45s</span><span class="layer-m">Meio</span><span>Calibragem prática</span></div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook"><div class="tc">0–3s</div><div class="line">Uma carteira tecnicamente perfeita que tira o seu sono não é uma boa recomendação.</div></div>
+        <div class="beat"><div class="tc">3–38s</div><div class="line">
+          <p>Responder um questionário é fácil. Todo mundo é corajoso numa pergunta hipotética.</p>
+          <p>Por isso existe uma segunda etapa: a gente mostra, <strong>em reais</strong>, quanto a sua carteira cairia numa queda típica de cada perfil. Não em percentual. Em dinheiro, sobre o seu patrimônio.</p>
+          <p>O número muda a resposta de muita gente. E é melhor que mude ali, numa conversa, do que na primeira semana ruim de mercado.</p>
+          <p>Porque quem vende na queda realiza a perda — e destrói exatamente o retorno de longo prazo que justificava aquela carteira.</p>
+        </div></div>
+        <div class="beat close"><div class="tc">Fecho</div><div class="line">Você já viu, em reais, quanto a sua carteira pode cair?</div></div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">EM REAIS, NÃO EM %</span>
+        <span class="onscreen">CORAJOSO NA HIPÓTESE</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>"Todo mundo é corajoso numa pergunta hipotética" é a frase de comentário. Diga com leveza, não com ironia.</li>
+          <li>Apoio permitido: um valor em reais piscando no lugar de um percentual. Nada além disso.</li>
+          <li>Grave em sequência com o R23 — os dois formam um argumento contínuo e ganham com a continuidade de tom.</li>
+        </ul>
+        <h4>Precisão</h4>
+        <div class="flag"><span class="fl">Atenção</span><p><b>Nenhum percentual de queda por perfil.</b> Os números da grade são parâmetro interno e parte deles ainda consta como não confirmada no vault. O vídeo fala do <b>método</b> — ver em reais, antes de decidir —, nunca do tamanho da queda.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Um questionário mede disposição declarada em situações imaginadas. O que decide de verdade é outra coisa: ver o número que dói, no seu patrimônio, antes de assinar qualquer coisa.</p>
+      <p>O custo de respeitar o seu limite é, no máximo, um pouco de retorno esperado. O custo de ignorá-lo é o plano inteiro, porque ninguém sustenta uma carteira que não consegue olhar.</p>
+      <p>Você já viu esse número?</p>
+    </div>
+    <div class="source">Fonte: <em>Etapa 1.5 — Calibragem Prática do Perfil</em> · <em>Tag — Capacidade Não Utilizada</em> (frase-chave) · <em>Por que um questionário único não basta</em>.</div>
+  </article>
+
+  <!-- R16 -->
+  <article class="script">
+    <div class="s-head">
+      <div class="s-num">R16</div>
+      <div>
+        <h3>Um diagnóstico não é uma sentença</h3>
+        <div class="s-meta"><span>Semana 4 · <b>segunda</b></span><span>40–45s</span><span class="layer-f">Fundo</span><span>O modelo é ponto de partida</span></div>
+      </div>
+    </div>
+    <div class="s-body">
+      <div class="falas">
+        <div class="beat hook"><div class="tc">0–3s</div><div class="line">Descobrir hoje que o seu plano não fecha é a melhor notícia que você pode receber.</div></div>
+        <div class="beat"><div class="tc">3–38s</div><div class="line">
+          <p>Quando a conta não fecha, quase sempre <strong>um ajuste pequeno</strong> já muda o resultado.</p>
+          <p>Adiar uma compra em dois anos. Desconcentrar uma posição. Reforçar o aporte. Reordenar o que vem primeiro.</p>
+          <p>Nenhum desses ajustes é dramático quando você tem vinte anos pela frente. <strong>Todos são impossíveis</strong> quando você descobre aos setenta.</p>
+          <p>O número ruim não é o fim da conversa. É o único momento em que ela ainda serve para alguma coisa.</p>
+        </div></div>
+        <div class="beat close"><div class="tc">Fecho</div><div class="line">Prefere saber agora ou daqui a vinte anos?</div></div>
+      </div>
+      <div class="tec">
+        <h4>Texto na tela</h4>
+        <span class="onscreen">NÃO É UMA SENTENÇA</span>
+        <span class="onscreen">AGORA OU AOS 70?</span>
+        <h4>Nota de gravação</h4>
+        <ul>
+          <li>Último reel da leva e o mais próximo da venda. Tom de <b>alívio</b>, não de alerta.</li>
+          <li>As quatro alavancas do segundo parágrafo em ritmo de lista, rápido. São elas que mostram que existe saída.</li>
+          <li>A pergunta final é dura e deve ser dita sem sorrir. Não emende explicação depois dela.</li>
+        </ul>
+        <h4>Ponte</h4>
+        <div class="flag"><span class="fl">Story de sexta</span><p>Preparação direta do convite. O bloco de oferta da última semana abre com a pergunta do fecho deste reel.</p></div>
+      </div>
+    </div>
+    <div class="s-caption">
+      <span class="eyebrow">Legenda do post</span>
+      <p>Um diagnóstico nunca é uma sentença. É um ponto de partida — e, na maior parte das vezes, um ajuste pequeno já muda o resultado de forma significativa.</p>
+      <p>O que não dá para ajustar é o tempo. As mesmas alavancas que resolvem a conta aos quarenta e cinco não resolvem nada aos setenta, porque o que fazia o trabalho ali era o prazo, não o esforço.</p>
+      <p>A primeira conversa leva trinta minutos.</p>
+    </div>
+    <div class="source">Fonte: <em>O modelo é ponto de partida, não sentença</em> (a tabela de alavancas) · <em>Otimizador de Plano</em> · <em>Etapa 8 — Revisão Periódica</em>.</div>
+  </article>
+</section>
+
+<footer>
+  Sete roteiros · duas diárias · nenhum exige ressalva jurídica.<br>
+  Numeração R15 a R24 preservada do editorial completo, para cruzar com o mapa de veias e não repetir tema nos próximos meses.
+</footer>
+
+</div>
+</body>
+</html>
