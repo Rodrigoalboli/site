@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador de Patrimônio</title>
+  <meta name="description" content="Simulação de Monte Carlo da evolução do patrimônio com movimento browniano geométrico: cenários pessimista, base e otimista." />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root { --c-p10: #c0392b; --c-p50: #111111; --c-p90: #1e8449; }
+    .card { max-width: 720px; }
+    h1 { font-size: 1.6rem; margin: 0 0 4px; }
+    .lead { color: var(--muted); margin: 0 0 24px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 6px; }
+    .field input {
+      display: block; width: 100%; min-width: 0; min-height: 46px; padding: 10px 12px;
+      font: inherit; font-size: 16px; font-variant-numeric: tabular-nums; -webkit-appearance: none; appearance: none;
+      border: 1px solid var(--border); border-radius: 8px; background: #fff;
+      color: #000; -webkit-text-fill-color: #000; font-weight: 500;
+    }
+    .field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+    .result {
+      margin-top: 28px; padding: 24px; border-radius: 12px; background: #fff; border: 1px solid var(--border); color: #000;
+    }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .stats div span { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: #333; }
+    .stats div strong { display: block; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+    .stats div small { color: var(--muted); font-size: 0.75rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .chart { position: relative; }
+    .chart svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
+    .chart text { font-size: 11px; fill: #666; font-variant-numeric: tabular-nums; }
+    .tip {
+      position: absolute; top: 0; pointer-events: none; background: #fff; border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 10px; font-size: 0.8rem; font-variant-numeric: tabular-nums;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08); white-space: nowrap;
+    }
+    .tip b { display: block; margin-bottom: 2px; }
+    .tip div { display: flex; align-items: center; gap: 6px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.8rem; color: #333; margin-top: 8px; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .legend i { width: 16px; height: 0; border-top: 2px solid; }
+    .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+    th, td { padding: 8px 4px; border-bottom: 1px solid var(--border); text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    th { font-weight: 600; color: #333; font-size: 0.8rem; }
+    .note { font-size: 0.8rem; color: var(--muted); margin-top: 20px; }
+    h2 { font-size: 1rem; margin: 28px 0 4px; }
+    .sub { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
+    .goal { display: grid; grid-template-columns: 2fr 1.5fr 1fr 40px; gap: 8px; margin-bottom: 8px; align-items: end; }
+    .goal label { display: none; }
+    .goal:first-child label { display: block; }
+    .btn {
+      min-height: 46px; padding: 0 14px; font: inherit; font-size: 0.9rem; border: 1px solid var(--border);
+      border-radius: 8px; background: #fff; color: #000; cursor: pointer;
+    }
+    .btn.rm { padding: 0; font-size: 1.2rem; color: var(--muted); }
+    .prob { font-size: 0.9rem; margin: -8px 0 16px; }
+    .prob strong { font-variant-numeric: tabular-nums; }
+    .warn { color: #a15c00; }
+    .chart .goal-label { font-size: 10px; fill: #555; }
+
+    @media (max-width: 520px) {
+      body { padding: 24px 16px; }
+      .card { padding: 0; }
+      h1 { font-size: 1.4rem; }
+      .lead { font-size: 0.95rem; margin-bottom: 20px; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .result { margin-top: 20px; padding: 16px; }
+      .stats { grid-template-columns: 1fr; gap: 0; }
+      .stats div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border); }
+      .stats div strong { font-size: 1rem; text-align: right; }
+      .stats div small { display: none; }
+      table { font-size: 0.8rem; margin-top: 12px; }
+      th, td { padding: 8px 2px; }
+      .opt { display: none; }
+      .goal { grid-template-columns: 1fr 1fr 64px 40px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Simulador de Patrimônio</h1>
+    <p class="lead">Milhares de trajetórias possíveis do seu patrimônio (Monte Carlo com movimento browniano geométrico), resumidas em três cenários.</p>
+
+    <form id="sim" class="grid" autocomplete="off" onsubmit="return false">
+      <div class="field">
+        <label for="pv">Patrimônio inicial (R$)</label>
+        <input id="pv" inputmode="decimal" value="1.000.000,00" />
+      </div>
+      <div class="field">
+        <label for="pmt">Aporte mensal (R$)</label>
+        <input id="pmt" inputmode="decimal" value="10.000,00" />
+      </div>
+      <div class="field">
+        <label for="years">Prazo (anos)</label>
+        <input id="years" inputmode="numeric" value="20" />
+      </div>
+      <div class="field">
+        <label for="mu">Retorno esperado (% a.a.)</label>
+        <input id="mu" inputmode="decimal" value="10" />
+      </div>
+      <div class="field">
+        <label for="sigma">Volatilidade (% a.a.)</label>
+        <input id="sigma" inputmode="decimal" value="15" />
+      </div>
+      <div class="field">
+        <label for="n">Simulações</label>
+        <input id="n" inputmode="numeric" value="5000" />
+      </div>
+    </form>
+
+    <h2>Objetivos</h2>
+    <p class="sub">Saídas de caixa previstas, descontadas do patrimônio ao fim do ano indicado.</p>
+    <div id="goals"></div>
+    <button type="button" class="btn" id="addGoal">+ Adicionar objetivo</button>
+    <div class="sub warn" id="goalWarn" hidden></div>
+
+    <section class="result" id="result" hidden>
+      <div class="stats">
+        <div><span><i class="dot" style="background: var(--c-p10)"></i>Pessimista</span><strong id="p10">—</strong><small>percentil 10</small></div>
+        <div><span><i class="dot" style="background: var(--c-p50)"></i>Base</span><strong id="p50">—</strong><small>mediana</small></div>
+        <div><span><i class="dot" style="background: var(--c-p90)"></i>Otimista</span><strong id="p90">—</strong><small>percentil 90</small></div>
+      </div>
+      <p class="prob" id="prob" hidden></p>
+
+      <div class="chart" id="chart">
+        <svg id="svg" role="img" aria-label="Evolução do patrimônio nos três cenários"></svg>
+        <div class="tip" id="tip" hidden></div>
+      </div>
+      <div class="legend">
+        <span><i style="border-color: var(--c-p90)"></i>Otimista</span>
+        <span><i style="border-color: var(--c-p50)"></i>Base</span>
+        <span><i style="border-color: var(--c-p10)"></i>Pessimista</span>
+        <span><i style="border-color: #999; border-top-style: dashed"></i>Aportes − objetivos</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Ano</th><th>Aportes − obj.</th><th>Pessimista</th><th>Base</th><th>Otimista</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="note">
+      Cada mês o patrimônio rende <em>S·exp((μ − σ²/2)·Δt + σ·√Δt·Z)</em>, com Z normal padrão e μ = ln(1 + retorno esperado),
+      e então recebe o aporte e paga os objetivos do mês. Se o patrimônio não cobre um objetivo, ele vai a zero
+      e aquela trajetória conta como objetivo não cumprido. Os cenários são os percentis 10, 50 e 90 das trajetórias em cada mês.
+      Valores nominais, antes de impostos e inflação — para valores reais, use um retorno esperado real.
+      Não é recomendação de investimento.
+    </p>
+  </main>
+
+  <script>
+    const C = { p10: "#c0392b", p50: "#111111", p90: "#1e8449" };
+
+    const $ = (id) => document.getElementById(id);
+    const brl0 = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+    const brlShort = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", notation: "compact", maximumFractionDigits: 1 });
+
+    function parseNum(s) {
+      s = String(s).trim().replace(/[R$%\s]/g, "");
+      if (s.includes(",") || /^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, "").replace(",", ".");
+      const n = parseFloat(s);
+      return Number.isFinite(n) ? n : NaN;
+    }
+
+    const esc = (s) => s.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
+
+    // Normal padrão (Box–Muller, gerando dois valores por vez)
+    let spare = null;
+    function gauss() {
+      if (spare !== null) { const z = spare; spare = null; return z; }
+      let u = 0;
+      while (u === 0) u = Math.random();
+      const r = Math.sqrt(-2 * Math.log(u)), t = 2 * Math.PI * Math.random();
+      spare = r * Math.sin(t);
+      return r * Math.cos(t);
+    }
+
+    // Percentil com interpolação linear entre vizinhos
+    function quantile(sorted, q) {
+      const pos = (sorted.length - 1) * q, i = Math.floor(pos);
+      return i + 1 < sorted.length ? sorted[i] + (sorted[i + 1] - sorted[i]) * (pos - i) : sorted[i];
+    }
+
+    // ---- Objetivos ----
+    let goalSeq = 0;
+    function addGoal(desc = "", value = "", year = "") {
+      const id = ++goalSeq, row = document.createElement("div");
+      row.className = "goal";
+      row.innerHTML = `
+        <div class="field"><label for="gd${id}">Descrição</label><input id="gd${id}" class="gd" placeholder="Ex.: imóvel" /></div>
+        <div class="field"><label for="gv${id}">Valor (R$)</label><input id="gv${id}" class="gv money" inputmode="decimal" /></div>
+        <div class="field"><label for="gy${id}">Em (anos)</label><input id="gy${id}" class="gy" inputmode="decimal" /></div>
+        <button type="button" class="btn rm" aria-label="Remover objetivo">×</button>`;
+      row.querySelector(".gd").value = desc;
+      row.querySelector(".gv").value = value;
+      row.querySelector(".gy").value = year;
+      $("goals").appendChild(row);
+    }
+
+    // Objetivos válidos: [{desc, value, month}]
+    function readGoals() {
+      return [...$("goals").children].map((row) => ({
+        desc: row.querySelector(".gd").value.trim(),
+        value: parseNum(row.querySelector(".gv").value),
+        month: Math.round(parseNum(row.querySelector(".gy").value) * 12),
+      })).filter((g) => g.value > 0 && g.month >= 1);
+    }
+
+    let sim = null; // { months, p10, p50, p90, paid, goals }
+
+    function simulate() {
+      const pv = parseNum($("pv").value);
+      const pmt = parseNum($("pmt").value);
+      const years = Math.round(parseNum($("years").value));
+      const r = parseNum($("mu").value) / 100;
+      const sigma = parseNum($("sigma").value) / 100;
+      const n = Math.round(parseNum($("n").value));
+
+      if ([pv, pmt, years, r, sigma, n].some(Number.isNaN) || years < 1 || years > 100 || r <= -1 || sigma < 0 || n < 10) {
+        $("result").hidden = true;
+        return;
+      }
+      const N = Math.min(n, 50000);
+      const months = years * 12, dt = 1 / 12;
+      const drift = (Math.log(1 + r) - sigma * sigma / 2) * dt;
+      const vol = sigma * Math.sqrt(dt);
+
+      const allGoals = readGoals();
+      const goals = allGoals.filter((g) => g.month <= months);
+      const outflow = new Float64Array(months + 1);
+      for (const g of goals) outflow[g.month] += g.value;
+      const skipped = allGoals.length - goals.length;
+      $("goalWarn").hidden = !skipped;
+      $("goalWarn").textContent = skipped ? `${skipped} objetivo${skipped > 1 ? "s" : ""} além do prazo da simulação — ignorado${skipped > 1 ? "s" : ""}.` : "";
+
+      // Uma trajetória por simulação, avançando mês a mês; percentis calculados em cada mês
+      const S = new Float64Array(N).fill(pv);
+      const failed = new Uint8Array(N);
+      const p10 = [pv], p50 = [pv], p90 = [pv], paid = [pv];
+      const buf = new Float64Array(N);
+      for (let m = 1; m <= months; m++) {
+        const w = outflow[m];
+        for (let i = 0; i < N; i++) {
+          let s = S[i] * Math.exp(drift + vol * gauss()) + pmt;
+          if (w) {
+            if (s < w) failed[i] = 1;
+            s = Math.max(0, s - w);
+          }
+          S[i] = buf[i] = s;
+        }
+        buf.sort();
+        p10.push(quantile(buf, 0.1));
+        p50.push(quantile(buf, 0.5));
+        p90.push(quantile(buf, 0.9));
+        paid.push(paid[m - 1] + pmt - w);
+      }
+      sim = { months, p10, p50, p90, paid, goals };
+
+      $("p10").textContent = brl0.format(p10[months]);
+      $("p50").textContent = brl0.format(p50[months]);
+      $("p90").textContent = brl0.format(p90[months]);
+
+      $("prob").hidden = !goals.length;
+      if (goals.length) {
+        const ok = 1 - failed.reduce((a, b) => a + b, 0) / N;
+        $("prob").innerHTML = `Chance de cumprir todos os objetivos: <strong>${(ok * 100).toLocaleString("pt-BR", { maximumFractionDigits: 1 })}%</strong>`;
+      }
+
+      const step = years > 30 ? 5 : years > 15 ? 2 : 1;
+      const rows = [];
+      for (let y = step; y <= years; y += step) rows.push(y);
+      if (rows[rows.length - 1] !== years) rows.push(years);
+      $("rows").innerHTML = rows.map((y) => {
+        const m = y * 12;
+        return `<tr><td>${y}</td><td>${brl0.format(paid[m])}</td><td>${brl0.format(p10[m])}</td><td>${brl0.format(p50[m])}</td><td>${brl0.format(p90[m])}</td></tr>`;
+      }).join("");
+
+      $("result").hidden = false;
+      draw();
+    }
+
+    // ---- Gráfico ----
+    const PAD = { l: 64, r: 12, t: 12, b: 28 };
+    let geom = null;
+
+    function niceStep(max, ticks) {
+      const raw = max / ticks, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+      const n = raw / mag;
+      return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * mag;
+    }
+
+    function draw() {
+      if (!sim) return;
+      const W = Math.max(280, $("chart").clientWidth), H = Math.round(Math.min(360, Math.max(220, W * 0.55)));
+      const svg = $("svg");
+      svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+      const { months, p10, p50, p90, paid } = sim;
+      const yMaxRaw = Math.max(...p90, ...paid) * 1.08 || 1; // folga para os rótulos dos objetivos
+      const yStep = niceStep(yMaxRaw, 5), yMax = Math.ceil(yMaxRaw / yStep) * yStep;
+      const x = (m) => PAD.l + (m / months) * (W - PAD.l - PAD.r);
+      const y = (v) => H - PAD.b - (Math.max(0, v) / yMax) * (H - PAD.t - PAD.b);
+      geom = { W, H, x, y, months };
+
+      const line = (arr) => arr.map((v, m) => `${m ? "L" : "M"}${x(m).toFixed(1)},${y(v).toFixed(1)}`).join("");
+      const band = line(p90) + p10.map((v, m) => m).reverse().map((m) => `L${x(m).toFixed(1)},${y(p10[m]).toFixed(1)}`).join("") + "Z";
+
+      let grid = "";
+      for (let v = 0; v <= yMax + 1e-9; v += yStep) {
+        grid += `<line x1="${PAD.l}" x2="${W - PAD.r}" y1="${y(v)}" y2="${y(v)}" stroke="#eee"/>`;
+        grid += `<text x="${PAD.l - 6}" y="${y(v) + 4}" text-anchor="end">${brlShort.format(v)}</text>`;
+      }
+      const years = months / 12, xStep = years <= 10 ? 1 : years <= 25 ? 5 : 10;
+      for (let yr = 0; yr <= years; yr += xStep) {
+        grid += `<text x="${x(yr * 12)}" y="${H - 8}" text-anchor="middle">${yr}a</text>`;
+      }
+
+      // Marcadores dos objetivos (rótulos alternam de altura para não sobrepor)
+      const marks = [...sim.goals].sort((a, b) => a.month - b.month).map((g, k) => {
+        const gx = x(g.month).toFixed(1), anchor = g.month > months * 0.8 ? "end" : "start", dx = anchor === "end" ? -4 : 4;
+        const label = (g.desc ? esc(g.desc) + " " : "") + "−" + brlShort.format(g.value);
+        return `<line x1="${gx}" x2="${gx}" y1="${PAD.t}" y2="${H - PAD.b}" stroke="#c9c9c9" stroke-dasharray="2 3"/>
+          <text class="goal-label" x="${+gx + dx}" y="${PAD.t + 10 + (k % 3) * 12}" text-anchor="${anchor}">${label}</text>`;
+      }).join("");
+
+      svg.innerHTML = `
+        ${grid}
+        ${marks}
+        <path d="${band}" fill="#1e8449" fill-opacity="0.07"/>
+        <path d="${line(paid)}" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <path d="${line(p10)}" fill="none" stroke="${C.p10}" stroke-width="2"/>
+        <path d="${line(p90)}" fill="none" stroke="${C.p90}" stroke-width="2"/>
+        <path d="${line(p50)}" fill="none" stroke="${C.p50}" stroke-width="2.5"/>
+        <line id="cursor" y1="${PAD.t}" y2="${H - PAD.b}" stroke="#bbb" visibility="hidden"/>`;
+    }
+
+    function hover(ev) {
+      if (!geom) return;
+      const svg = $("svg"), rect = svg.getBoundingClientRect();
+      const px = (ev.clientX - rect.left) * (geom.W / rect.width);
+      const m = Math.round(((px - PAD.l) / (geom.W - PAD.l - PAD.r)) * geom.months);
+      const tip = $("tip"), cursor = $("cursor");
+      if (m < 0 || m > geom.months) { tip.hidden = true; cursor.setAttribute("visibility", "hidden"); return; }
+      const cx = geom.x(m);
+      cursor.setAttribute("x1", cx); cursor.setAttribute("x2", cx); cursor.setAttribute("visibility", "visible");
+      const yr = Math.floor(m / 12), mo = m % 12;
+      const here = sim.goals.filter((g) => g.month === m)
+        .map((g) => `<div>${g.desc ? esc(g.desc) + ": " : "Objetivo: "}−${brl0.format(g.value)}</div>`).join("");
+      tip.innerHTML = `<b>${yr} ano${yr === 1 ? "" : "s"}${mo ? ` e ${mo} ${mo === 1 ? "mês" : "meses"}` : ""}</b>${here}
+        <div><i class="dot" style="background:${C.p90}"></i>${brl0.format(sim.p90[m])}</div>
+        <div><i class="dot" style="background:${C.p50}"></i>${brl0.format(sim.p50[m])}</div>
+        <div><i class="dot" style="background:${C.p10}"></i>${brl0.format(sim.p10[m])}</div>
+        <div><i class="dot" style="background:#999"></i>${brl0.format(sim.paid[m])} aportes − objetivos</div>`;
+      tip.hidden = false;
+      const left = (cx / geom.W) * rect.width;
+      tip.style.left = (left > rect.width / 2 ? left - tip.offsetWidth - 10 : left + 10) + "px";
+    }
+    $("svg").addEventListener("pointermove", hover);
+    $("svg").addEventListener("pointerdown", hover);
+    $("svg").addEventListener("pointerleave", () => {
+      $("tip").hidden = true;
+      $("cursor")?.setAttribute("visibility", "hidden");
+    });
+
+    // Formata R$ ao sair do campo
+    for (const id of ["pv", "pmt"]) {
+      $(id).addEventListener("blur", () => {
+        const n = parseNum($(id).value);
+        if (!Number.isNaN(n)) $(id).value = n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      });
+    }
+    $("goals").addEventListener("focusout", (ev) => {
+      if (!ev.target.classList.contains("money")) return;
+      const n = parseNum(ev.target.value);
+      if (!Number.isNaN(n)) ev.target.value = n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    });
+    $("goals").addEventListener("click", (ev) => {
+      if (!ev.target.classList.contains("rm")) return;
+      ev.target.closest(".goal").remove();
+      simulate();
+    });
+    $("addGoal").addEventListener("click", () => {
+      addGoal();
+      $("goals").lastElementChild.querySelector("input").focus();
+    });
+
+    let timer;
+    const schedule = () => { clearTimeout(timer); timer = setTimeout(simulate, 250); };
+    $("sim").addEventListener("input", schedule);
+    $("goals").addEventListener("input", schedule);
+    window.addEventListener("resize", draw);
+    addGoal("Imóvel", "800.000,00", "8");
+    simulate();
+  </script>
+</body>
+</html>
