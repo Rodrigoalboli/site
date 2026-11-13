@@ -444,7 +444,8 @@
       if (m < 0 || m > geom.months) { tip.hidden = true; cursor.setAttribute("visibility", "hidden"); return; }
       const cx = geom.x(m);
       cursor.setAttribute("x1", cx); cursor.setAttribute("x2", cx); cursor.setAttribute("visibility", "visible");
-      const yr = Math.floor(m / 12), mo = m % 12;
+      // Idade no ponto do cursor (mesma referência do eixo X)
+      const total = Math.round(sim.age * 12) + m, yr = Math.floor(total / 12), mo = total % 12;
       const at = (list, fallback, sign) => list.filter((g) => g.months.includes(m))
         .map((g) => `<div>${g.desc ? esc(g.desc) + ": " : fallback + ": "}${sign}${brl0.format(g.value)}</div>`).join("");
       const here = at(sim.credits, "Evento", "+") + at(sim.goals, "Objetivo", "−");
