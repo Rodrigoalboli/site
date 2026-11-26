@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora PGBL</title>
+  <meta name="description" content="Quanto aportar em PGBL para completar o limite de 12% da renda tributável, descontando o que você já contribui ao fundo de pensão." />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Mobile first: o base é o celular; telas maiores ajustam via min-width no fim */
+    html { -webkit-text-size-adjust: 100%; }
+    body { padding: 24px 16px; overflow-x: hidden; }
+    .card { max-width: 640px; min-width: 0; padding: 0; }
+    h1 { font-size: 1.4rem; margin: 0 0 4px; }
+    .lead { font-size: 0.95rem; color: var(--muted); margin: 0 0 20px; }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .field { min-width: 0; }
+    label { display: block; font-size: 0.85rem; line-height: 1.3; color: var(--muted); margin: 0 0 6px; }
+    .field input {
+      display: block; width: 100%; min-width: 0; min-height: 46px; padding: 10px 12px;
+      font: inherit; font-size: 16px; font-variant-numeric: tabular-nums; -webkit-appearance: none; appearance: none;
+      border: 1px solid var(--border); border-radius: 8px; background: #fff;
+      color: #000; -webkit-text-fill-color: #000; font-weight: 500;
+    }
+    .field input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+    .hint { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+    .result {
+      margin-top: 20px; padding: 16px; border-radius: 12px; background: #fff; border: 1px solid var(--border); color: #000;
+    }
+    .result .label { font-size: 0.85rem; color: #333; }
+    .result .big { font-size: 1.9rem; line-height: 1.2; font-weight: 700; font-variant-numeric: tabular-nums; margin: 2px 0 12px; overflow-wrap: anywhere; }
+    .bar { height: 8px; border-radius: 4px; background: #eee; overflow: hidden; display: flex; margin: 0 0 12px; }
+    .bar i { display: block; height: 100%; }
+    .bar .used { background: #999; }
+    .bar .todo { background: #111; }
+    .stats { display: grid; grid-template-columns: 1fr; }
+    .stats div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-top: 1px solid var(--border); }
+    .stats div span { font-size: 0.8rem; color: #333; }
+    .stats div strong { font-size: 1rem; text-align: right; font-variant-numeric: tabular-nums; }
+    .msg { font-size: 0.85rem; margin: 12px 0 0; color: #333; }
+    .msg:empty { display: none; }
+    .note { font-size: 0.8rem; color: var(--muted); margin-top: 20px; }
+    .warn { color: #a15c00; }
+
+    @media (min-width: 600px) {
+      body { padding: 48px 16px; }
+      .card { padding: 40px; }
+      h1 { font-size: 1.6rem; }
+      .lead { font-size: 1rem; margin-bottom: 24px; }
+      /* Campos lado a lado; subgrid alinha os inputs mesmo com rótulos de alturas diferentes */
+      .grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto; gap: 0 16px; }
+      .field { display: grid; grid-row: span 3; grid-template-rows: subgrid; }
+      label { align-self: end; }
+      .result { margin-top: 28px; padding: 24px; }
+      .result .big { font-size: 2.2rem; margin-bottom: 16px; }
+      .bar { margin-bottom: 16px; }
+      .stats div { display: block; padding: 0; border: 0; }
+      .stats div span { display: block; }
+      .stats div strong { display: block; font-size: 1.25rem; text-align: left; }
+      .msg { margin-top: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Calculadora PGBL</h1>
+    <p class="lead">Quanto aportar em PGBL para completar o limite de 12% da renda tributável, já descontando o que você contribui ao fundo de pensão.</p>
+
+    <form id="calc" class="grid" autocomplete="off" onsubmit="return false">
+      <div class="field">
+        <label for="income">Renda bruta tributável no ano (R$)</label>
+        <input id="income" inputmode="decimal" value="" />
+        <div class="hint">Salários, 13º, pró-labore, aluguéis…</div>
+      </div>
+      <div class="field">
+        <label for="fund">Sua contribuição ao fundo de pensão no ano (R$)</label>
+        <input id="fund" inputmode="decimal" value="" />
+        <div class="hint">Só a sua parte, sem a da empresa.</div>
+      </div>
+    </form>
+
+    <section class="result" id="result" hidden>
+      <div class="label">Aporte em PGBL para completar o limite</div>
+      <div class="big" id="pgbl">—</div>
+      <div class="bar" aria-hidden="true"><i class="used" id="barUsed"></i><i class="todo" id="barTodo"></i></div>
+      <div class="stats">
+        <div><span>Economia de IR estimada</span><strong id="saving">—</strong></div>
+      </div>
+      <p class="msg" id="msg"></p>
+    </section>
+
+    <p class="note">
+      O limite de 12% da renda bruta tributável é um só para fundo de pensão, PGBL e FAPI somados. O benefício só vale para quem faz a
+      declaração completa do IR e contribui ao INSS ou a um regime próprio (ou já é aposentado por eles). Aporte até o último dia útil do ano
+      para deduzir na declaração seguinte. *Economia calculada sobre o total dedutível (fundo de pensão + PGBL complementar), à alíquota marginal de 27,5%. Em rendas menores o ganho é menor.
+      O imposto é diferido: no resgate, o IR incide sobre o valor total. Não é recomendação de investimento.
+    </p>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
+    const LIMIT = 0.12, RATE = 0.275;
+
+    function parseNum(s) {
+      s = String(s).trim().replace(/[R$\s]/g, "");
+      if (s === "") return 0;
+      if (s.includes(",") || /^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, "").replace(",", ".");
+      const n = parseFloat(s);
+      return Number.isFinite(n) ? n : NaN;
+    }
+
+    function compute() {
+      const income = parseNum($("income").value);
+      const fund = parseNum($("fund").value);
+
+      if ([income, fund].some(Number.isNaN) || income <= 0 || fund < 0) {
+        $("result").hidden = true;
+        return;
+      }
+
+      const limit = income * LIMIT;
+      const usedDeductible = Math.min(fund, limit);
+      const pgbl = Math.max(0, limit - fund);
+      const excess = Math.max(0, fund - limit);
+
+      $("pgbl").textContent = pgbl > 0 ? brl.format(pgbl) : "R$ 0,00 — limite atingido";
+      $("saving").textContent = brl.format((usedDeductible + pgbl) * RATE);
+
+      $("barUsed").style.width = (usedDeductible / limit) * 100 + "%";
+      $("barTodo").style.width = (pgbl / limit) * 100 + "%";
+
+      const pctUsed = (fund / income) * 100;
+      const pctFmt = pctUsed.toLocaleString("pt-BR", { maximumFractionDigits: 1 });
+      if (excess > 0) {
+        $("msg").innerHTML = `<span class="warn">Sua contribuição ao fundo já equivale a ${pctFmt}% da renda. Os ${brl.format(excess)} acima do limite não são dedutíveis, e um aporte em PGBL não teria benefício fiscal neste ano.</span>`;
+      } else if (pgbl === 0) {
+        $("msg").textContent = "Sua contribuição ao fundo de pensão já usa exatamente o limite de 12%.";
+      } else {
+        $("msg").textContent = `O fundo de pensão usa ${pctFmt}% da renda. Com o PGBL, você completa os 12% e deduz ${brl.format(limit)} no total.`;
+      }
+
+      $("result").hidden = false;
+    }
+
+    // Formata R$ ao sair do campo
+    for (const id of ["income", "fund"]) {
+      $(id).addEventListener("blur", () => {
+        const n = parseNum($(id).value);
+        if (!Number.isNaN(n)) $(id).value = n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      });
+    }
+    $("calc").addEventListener("input", compute);
+    compute();
+  </script>
+</body>
+</html>
